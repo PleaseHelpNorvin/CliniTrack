@@ -7,5 +7,5 @@ use App\Http\Controllers\Admin\DashboardController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/login', [ AuthController::class, 'index'])->name('login');
+Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
