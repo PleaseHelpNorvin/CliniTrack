@@ -33,8 +33,9 @@
     /* Page Content Area */
     #content-area {
       flex-grow: 1;
+            transition: all 0.3s ease;
+
       margin-left: 250px;
-      transition: all 0.3s ease;
     }
 
     /* Navbar */
@@ -132,7 +133,7 @@
       </nav>
 
       {{-- Main Content --}}
-      <div class="container-fluid" style="padding:20px; margin-top:56px;">
+      <div class="container-fluid" style="padding:20px; margin-top:56px; margin-right:auto">
         @yield('content')
       </div>
 
@@ -152,6 +153,12 @@
 
     menuToggle.addEventListener('click', () => {
       wrapper.classList.toggle('toggled');
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 992) {
+            wrapper.classList.remove('toggled');
+        }
     });
   </script>
 </body>
