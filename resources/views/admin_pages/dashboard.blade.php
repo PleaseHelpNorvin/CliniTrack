@@ -12,3 +12,18 @@
 
 </div>
 @endsection
+
+<!-- Dashboard
+Total Students
+
+
+Total Visits Today / This Month
+
+
+Active Nurses / Staff
+
+
+Common Illnesses (chart)
+
+
+Recent Visits Table -->

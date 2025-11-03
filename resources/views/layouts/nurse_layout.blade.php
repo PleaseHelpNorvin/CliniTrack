@@ -21,6 +21,7 @@
       .toggled #sidebar-wrapper { margin-left:0; }
       .toggled #content-area { margin-left:250px; }
     }
+    
     #menu-toggle{ display:none; }
     @media(max-width:992px){ #menu-toggle{ display:inline-block; } }
   </style>
