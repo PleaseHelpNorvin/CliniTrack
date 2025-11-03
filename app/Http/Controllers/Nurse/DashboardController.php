@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Nurse;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    //
     public function index() {
-        return view('admin_pages.dashboard'); 
+        return view('nurse_pages.dashboard');
     }
 }
- 

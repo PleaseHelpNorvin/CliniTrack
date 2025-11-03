@@ -18,15 +18,12 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 });
 
-
 // Nurse routes
 Route::prefix('nurse')->middleware(['auth', 'role:nurse'])->group(function () {
-
     Route::get('/dashboard', [NurseDashboard::class, 'index'])->name('nurse.dashboard');
 });
 
 // Staff routes
 Route::prefix('staff')->middleware(['auth', 'role:staff'])->group(function () {
-
     Route::get('/dashboard', [StaffDashboard::class, 'index'])->name('staff.dashboard');
 });
