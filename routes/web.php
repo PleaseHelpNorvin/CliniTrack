@@ -15,8 +15,7 @@ use App\Http\Controllers\Nurse\ReportController as NurseReports;
 use App\Http\Controllers\Nurse\VisitController;
 
 use App\Http\Controllers\Staff\DashboardController as StaffDashboard;
-
-
+use App\Models\Student;
 
 Route::get('/', fn() => view('welcome'));
 
@@ -36,8 +35,14 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/update/{user}', [UserController::class, 'update'])->name('admin.users.update');
         Route::delete('/delete/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
     }); 
+
     Route::prefix('students')->group(function (){
         Route::get('/', [StudentController::class, 'index'])->name('admin.students.index');
+        Route::get('/create', [StudentController::class, 'create'])->name('admin.students.create');
+        Route::post('/store', [StudentController::class, 'store'])->name('admin.students.store');
+        Route::get('/view/{student}',[StudentController::class, 'view'])->name('admin.students.view');
+        Route::get('/edit',[StudentController::class, 'edit'])->name('admin.students.edit');
+        Route::get('/destroy/{student}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
     }); 
     Route::prefix('reports')->group(function (){
         Route::get('/', [AdminReports::class, 'index'])->name('admin.reports.index');

@@ -26,8 +26,6 @@
       margin-top: auto;
     }
 
-    
-
     /* Layout Wrapper */
     #wrapper {
       display: flex;
@@ -63,12 +61,14 @@
     }
 
     /* Toggled (Collapsed Sidebar) */
-    .toggled #sidebar-wrapper {
-      /* margin-left: -250px; */
-    }
+    /* .toggled #sidebar-wrapper {
+      margin-left: -250px;
+    } */
 
     .toggled #content-area {
-      margin-left: 0;
+      /* margin-left: 0; //current */
+      margin-left: 250px; /* pushes content when sidebar shows */
+
     }
 
     .toggled nav.navbar {

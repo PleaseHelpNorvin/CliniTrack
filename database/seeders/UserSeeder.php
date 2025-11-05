@@ -2,13 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
-
 
 class UserSeeder extends Seeder
 {
@@ -17,15 +13,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Admin user
+        // ✅ Main Accounts
         User::create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
-            'password' => Hash::make('password123'), // never store plain password
+            'password' => Hash::make('password123'),
             'role' => 'admin',
         ]);
 
-        // Nurse user
         User::create([
             'name' => 'Nurse User',
             'email' => 'nurse@example.com',
@@ -33,12 +28,41 @@ class UserSeeder extends Seeder
             'role' => 'nurse',
         ]);
 
-        // Staff user
         User::create([
             'name' => 'Staff User',
             'email' => 'staff@example.com',
             'password' => Hash::make('password123'),
             'role' => 'staff',
         ]);
+
+        // ✅ Generate 5 Admins
+        for ($i = 1; $i <= 5; $i++) {
+            User::create([
+                'name' => "Admin User $i",
+                'email' => "admin$i@example.com",
+                'password' => Hash::make('password123'),
+                'role' => 'admin',
+            ]);
+        }
+
+        // ✅ Generate 5 Nurses
+        for ($i = 1; $i <= 5; $i++) {
+            User::create([
+                'name' => "Nurse User $i",
+                'email' => "nurse$i@example.com",
+                'password' => Hash::make('password123'),
+                'role' => 'nurse',
+            ]);
+        }
+
+        // ✅ Generate 5 Staff
+        for ($i = 1; $i <= 5; $i++) {
+            User::create([
+                'name' => "Staff User $i",
+                'email' => "staff$i@example.com",
+                'password' => Hash::make('password123'),
+                'role' => 'staff',
+            ]);
+        }
     }
 }

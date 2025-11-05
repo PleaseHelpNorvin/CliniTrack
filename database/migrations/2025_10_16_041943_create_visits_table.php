@@ -15,10 +15,25 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->foreignId('nurse_id')->constrained('users')->onDelete('cascade');
-            $table->dateTime('visit_time');
-            $table->enum('reason', ['sick','injury','checkup','other'])->default('other');
-            $table->text('notes')->nullable();
+
+            $table->dateTime('visited_at');
+
+            $table->enum('reason', [
+                'sick','injury','checkup','headache','fever','stomachache','menstrual','asthma','toothache','other'
+            ])->default('other');
+
+            $table->string('temperature')->nullable();
+            $table->string('blood_pressure')->nullable();
+            $table->string('pulse_rate')->nullable();
+
+            $table->text('treatment_given')->nullable();
+            $table->text('nurse_notes')->nullable();
+
             $table->enum('status', ['treated','referred','sent_home'])->default('treated');
+            $table->string('referred_to')->nullable();
+
+            $table->boolean('emergency')->default(false);
+
             $table->timestamps();
         });
 

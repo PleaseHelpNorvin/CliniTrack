@@ -13,7 +13,6 @@ class UserController extends Controller
     {
         $query = User::query();
 
-        // Search
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
@@ -21,12 +20,11 @@ class UserController extends Controller
             });
         }
 
-        // Filter by role
         if ($request->role && $request->role !== 'all') {
             $query->where('role', $request->role);
         }
 
-        $users = $query->orderBy('id', 'DESC')->paginate(10);
+        $users = $query->orderBy('id', 'DESC')->paginate(9);
 
         // Keep the search/filter in pagination links
         $users->appends($request->all());
