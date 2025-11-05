@@ -105,11 +105,18 @@
         CliniTrack
       </div>
       <div class="list-group list-group-flush">
-        <a href="{{ url('/') }}" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="{{ url('/students') }}" class="list-group-item list-group-item-action bg-light">Students</a>
-        <a href="{{ url('/visits') }}" class="list-group-item list-group-item-action bg-light">Visits</a>
-        <a href="{{ url('/notifications') }}" class="list-group-item list-group-item-action bg-light">Notifications</a>
-        <a href="{{ url('/logout') }}" class="list-group-item list-group-item-action bg-light">Logout</a>
+        <a href="{{ Route('admin.dashboard') }}" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="{{ Route('admin.users.index') }}" class="list-group-item list-group-item-action bg-light">User Management</a>
+        <a href="{{ Route('admin.students.index') }}" class="list-group-item list-group-item-action bg-light">Students Module</a>
+        <a href="{{ Route('admin.reports.index') }}" class="list-group-item list-group-item-action bg-light">Clinic Reports</a>
+        <a href="{{ Route('admin.logs.index') }}" class="list-group-item list-group-item-action bg-light">Activity Logs</a>
+        <a href="{{ Route('admin.settings.index') }}" class="list-group-item list-group-item-action bg-light">Profile / Settings</a>
+
+          <form action="{{ Route('logout') }}" method="POST">
+            @csrf
+            <button class="list-group-item list-group-item-action bg-light">Logout</button>
+
+          </form>
       </div>
     </div>
 

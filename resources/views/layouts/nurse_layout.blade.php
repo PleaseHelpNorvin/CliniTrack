@@ -37,13 +37,13 @@
     </div>
 
     <div class="list-group list-group-flush">
-      <a href="{{ url('/nurse') }}" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-      <a href="{{ url('/nurse/patients') }}" class="list-group-item list-group-item-action bg-light">Patients</a>
-      <a href="{{ url('/nurse/visits') }}" class="list-group-item list-group-item-action bg-light">Visits</a>
-      <a href="{{ url('/nurse/reports') }}" class="list-group-item list-group-item-action bg-light">Reports</a>
+      <a href="{{ Route('nurse.dashboard') }}" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+      <a href="{{ Route('nurse.patients.index') }}" class="list-group-item list-group-item-action bg-light">Patients</a>
+      <a href="{{ Route('nurse.visits.index') }}" class="list-group-item list-group-item-action bg-light">Visits</a>
+      <a href="{{ Route('nurse.reports.index') }}" class="list-group-item list-group-item-action bg-light">Reports</a>
 
       {{-- Logout --}}
-      <form action="{{ url('/logout') }}" method="POST">
+      <form action="{{ Route('logout') }}" method="POST">
         @csrf
         <button class="list-group-item list-group-item-action bg-light border-0 text-start">Logout</button>
       </form>

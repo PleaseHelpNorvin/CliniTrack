@@ -1,3 +1,18 @@
+@extends('layouts.nurse_layout')
+
+@section('title', 'Visit Page')
+@section('page-title', 'Visit Page')
+
+@section('content')
+<div class="card">
+    <div class="card-body">
+        <h4>Welcome Nurse!</h4>
+        <p>Visits Pagesss.</p>
+    </div>
+</div>
+@endsection
+
+
 <!-- Fields based on your visits table:
 Select student
 
