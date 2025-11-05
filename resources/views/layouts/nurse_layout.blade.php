@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="{{ asset('Bootstrap5/css/bootstrap.min.css') }}">
 
   <style>
+    .list-group-item.active {
+      background-color: #0d6efd !important; /* Bootstrap primary blue */
+      color: #fff !important;
+      font-weight: 600;
+    }
+
     body { overflow-x: hidden; }
 
     #wrapper { display:flex; width:100%; transition:0.3s; }
@@ -37,11 +43,26 @@
     </div>
 
     <div class="list-group list-group-flush">
-      <a href="{{ Route('nurse.dashboard') }}" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-      <a href="{{ Route('nurse.patients.index') }}" class="list-group-item list-group-item-action bg-light">Patients</a>
-      <a href="{{ Route('nurse.visits.index') }}" class="list-group-item list-group-item-action bg-light">Visits</a>
-      <a href="{{ Route('nurse.reports.index') }}" class="list-group-item list-group-item-action bg-light">Reports</a>
+      <a href="{{ route('nurse.dashboard') }}" 
+        class="list-group-item list-group-item-action bg-light {{ request()->routeIs('nurse.dashboard') ? 'active' : '' }}">
+        Dashboard
+      </a>
 
+      <a href="{{ route('nurse.patients.index') }}" 
+        class="list-group-item list-group-item-action bg-light {{ request()->routeIs('nurse.patients.*') ? 'active' : '' }}">
+        Patients
+      </a>
+
+      <a href="{{ route('nurse.visits.index') }}" 
+        class="list-group-item list-group-item-action bg-light {{ request()->routeIs('nurse.visits.*') ? 'active' : '' }}">
+        Visits
+      </a>
+
+      <a href="{{ route('nurse.reports.index') }}" 
+        class="list-group-item list-group-item-action bg-light {{ request()->routeIs('nurse.reports.*') ? 'active' : '' }}">
+        Reports
+      </a>
+      
       {{-- Logout --}}
       <form action="{{ Route('logout') }}" method="POST">
         @csrf

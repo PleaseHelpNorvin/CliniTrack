@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="{{ asset('Bootstrap5/css/bootstrap.min.css') }}">
 
   <style>
+    .list-group-item.active {
+        background-color: #0d6efd !important; /* Bootstrap Primary Blue */
+        color: white !important;
+        font-weight: bold;
+        border-color: #0d6efd !important;
+    }
+
     body {
       overflow-x: hidden;
     }
@@ -105,17 +112,39 @@
         CliniTrack
       </div>
       <div class="list-group list-group-flush">
-        <a href="{{ Route('admin.dashboard') }}" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="{{ Route('admin.users.index') }}" class="list-group-item list-group-item-action bg-light">User Management</a>
-        <a href="{{ Route('admin.students.index') }}" class="list-group-item list-group-item-action bg-light">Students Module</a>
-        <a href="{{ Route('admin.reports.index') }}" class="list-group-item list-group-item-action bg-light">Clinic Reports</a>
-        <a href="{{ Route('admin.logs.index') }}" class="list-group-item list-group-item-action bg-light">Activity Logs</a>
-        <a href="{{ Route('admin.settings.index') }}" class="list-group-item list-group-item-action bg-light">Profile / Settings</a>
+        <a href="{{ route('admin.dashboard') }}" 
+          class="list-group-item list-group-item-action bg-light {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+          Dashboard
+        </a>
+
+        <a href="{{ route('admin.users.index') }}" 
+          class="list-group-item list-group-item-action bg-light {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+          User Management
+        </a>
+
+        <a href="{{ route('admin.students.index') }}" 
+          class="list-group-item list-group-item-action bg-light {{ request()->routeIs('admin.students.*') ? 'active' : '' }}">
+          Students Module
+        </a>
+
+        <a href="{{ route('admin.reports.index') }}" 
+          class="list-group-item list-group-item-action bg-light {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
+          Clinic Reports
+        </a>
+
+        <a href="{{ route('admin.logs.index') }}" 
+          class="list-group-item list-group-item-action bg-light {{ request()->routeIs('admin.logs.*') ? 'active' : '' }}">
+          Activity Logs
+        </a>
+
+        <a href="{{ route('admin.settings.index') }}" 
+          class="list-group-item list-group-item-action bg-light {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+          Profile / Settings
+        </a>
 
           <form action="{{ Route('logout') }}" method="POST">
             @csrf
             <button class="list-group-item list-group-item-action bg-light">Logout</button>
-
           </form>
       </div>
     </div>
