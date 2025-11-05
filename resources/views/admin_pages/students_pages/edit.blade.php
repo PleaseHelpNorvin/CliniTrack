@@ -87,7 +87,7 @@
                 <label class="col-md-3 col-form-label fw-bold">Date of Birth</label>
                 <div class="col-md-9">
                     <input type="date" name="dob" class="form-control"
-                        value="{{ old('dob', $student->dob) }}">
+                        value="{{ old('dob', $student->dob ? $student->dob->format('Y-m-d') : '') }}">
                 </div>
             </div>
 
