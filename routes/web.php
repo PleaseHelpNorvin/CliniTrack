@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\ReportController as AdminReports;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\DocumentController;
 
 use App\Http\Controllers\Nurse\DashboardController as NurseDashboard;
 use App\Http\Controllers\Nurse\PatientController;
@@ -41,9 +42,17 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/create', [StudentController::class, 'create'])->name('admin.students.create');
         Route::post('/store', [StudentController::class, 'store'])->name('admin.students.store');
         Route::get('/view/{student}',[StudentController::class, 'view'])->name('admin.students.view');
-        Route::get('/edit',[StudentController::class, 'edit'])->name('admin.students.edit');
+        Route::get('/edit/{student}',[StudentController::class, 'edit'])->name('admin.students.edit');
+        Route::post('/update/{student}',[StudentController::class, 'update'])->name('admin.students.update');
         Route::get('/destroy/{student}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
     }); 
+
+    Route::prefix('documents')->group(function () {
+        Route::get('/create/{student}', [DocumentController::class, 'create'])->name('admin.documents.create');
+        Route::post('/store', [DocumentController::class, 'store'])->name('admin.documents.store');
+        Route::delete('/destroy/{document}', [DocumentController::class, 'destroy'])->name('admin.documents.destroy');
+    });
+    
     Route::prefix('reports')->group(function (){
         Route::get('/', [AdminReports::class, 'index'])->name('admin.reports.index');
     }); 

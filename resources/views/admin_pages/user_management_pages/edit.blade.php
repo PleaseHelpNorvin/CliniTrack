@@ -3,7 +3,7 @@
 @section('page-title', 'Edit User')
 
 @section('content')
-<div class="container">
+<!-- <div class="container"> -->
 
     <h3 class="mb-3">Edit User {{$user->name}}</h3>
 
@@ -76,5 +76,5 @@
 
     </form>
 
-</div>
+<!-- </div> -->
 @endsection

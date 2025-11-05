@@ -74,7 +74,7 @@ class StudentController extends Controller
             'grade_level_other' => 'nullable|string|max:50',
             'section' => 'nullable|string|max:50',
             'dob' => 'required|date',
-            'contact_number' => 'nullable|string|max:20',
+            'contact_number' => 'required|string|max:20',
             'email' => 'required|email|max:255',   
             'address' => 'required|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -110,8 +110,57 @@ class StudentController extends Controller
         return view('admin_pages.students_pages.view', compact('student'));
     }
 
-    public function edit() {
-        return view ('admin_pages.students_pages.edit');
+    public function edit(Student $student)
+    {
+        $student->load(['visits.nurse', 'documents']);
+        return view('admin_pages.students_pages.edit', compact('student'));
+    }
+
+    public function update(Request $request, Student $student)
+    {
+        $validated = $request->validate([
+            'student_number' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'grade_level' => 'nullable',
+            'grade_level_other' => 'nullable|max:255',
+            'section' => 'nullable|string|max:255',
+            'dob' => 'nullable|date',
+            'contact_number' => 'nullable|string|max:255',
+            'email' => 'nullable|email',
+            'address' => 'nullable|string|max:255',
+
+            // ✅ allow multiple document uploads
+            'documents.*' => 'file|mimes:pdf,jpg,jpeg,png|max:2048',
+            // ✅ profile photo
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+        ]);
+
+        // ✅ Handle profile photo upload
+        if($request->hasFile('photo')) {
+            if($student->photo && \Storage::exists('public/'.$student->photo)) {
+                \Storage::delete('public/'.$student->photo);
+            }
+            $validated['photo'] = $request->file('photo')->store('students/photos', 'public');
+        }
+
+        // ✅ Save student info
+        $student->update($validated);
+
+        // ✅ Handle document uploads
+        if($request->hasFile('documents')) {
+            foreach ($request->file('documents') as $file) {
+                $path = $file->store('students/documents', 'public');
+
+                $student->documents()->create([
+                    'path' => $path,
+                    'type' => 'document'
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.students.view', $student->id)
+            ->with('success', 'Student updated successfully!');
     }
 
     public function destroy(){

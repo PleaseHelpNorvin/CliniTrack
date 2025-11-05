@@ -5,7 +5,7 @@
 
 @section('content')
 
-{{-- ✅ Student Info Card --}}
+{{-- Student Info Card --}}
 <div class="mb-3">
     <a href="{{ route('admin.students.index') }}" class="btn btn-secondary">
         &larr; Back
@@ -20,7 +20,6 @@
         <div class="mb-3 mb-md-0 me-md-3 text-center text-md-start">
             <img src="{{ $student->photo ? asset('storage/'.$student->photo) : asset('App/images/no-image-default.jpg') }}"
                 alt="Student Photo"
-                class="rounded-circle"
                 style="width: 120px; height: 120px; object-fit: cover;">
         </div>
 
@@ -53,9 +52,9 @@
 
         {{-- Buttons --}}
         <div class="text-center text-md-end">
-            <a href="{{ route('admin.students.edit', $student) }}" class="btn btn-warning me-2 mb-2 mb-md-0">Edit</a>
+            <a href="{{ Route('admin.students.edit', $student) }}" class="btn btn-warning me-2 mb-2 mb-md-0">Edit</a>
 
-            <form action="{{ route('admin.students.destroy', $student) }}" method="POST" class="d-inline">
+            <form action="{{ Route('admin.students.destroy', $student) }}" method="POST" class="d-inline">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger me-2 mb-2 mb-md-0"
@@ -176,7 +175,7 @@
             </div>
 
 
-            {{-- DOCUMENTS TAB --}}
+            <!-- {{-- DOCUMENTS TAB --}}
             <div class="tab-pane fade" id="documents">
                 <ul class="list-group">
                     @foreach($student->documents as $doc)
@@ -185,6 +184,38 @@
                     </li>
                     @endforeach
                 </ul>
+            </div> -->
+
+            {{-- DOCUMENTS TAB --}}
+            <div class="tab-pane fade" id="documents">
+                
+                <div class="d-flex justify-content-between mb-2">
+                    <h5>Student Documents</h5>
+                    <a href="{{ route('admin.documents.create', $student->id) }}" class="btn btn-sm btn-primary">
+                        Upload Document
+                    </a>
+                </div>
+
+                @if($student->documents->count() > 0)
+                <ul class="list-group">
+                    @foreach($student->documents as $doc)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{ $doc->url }}" target="_blank">{{ $doc->name }}</a>
+
+                        <div>
+                            
+                            <form action="{{ route('admin.documents.destroy', $doc->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this document?')">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
+                @else
+                    <p class="text-muted">No documents uploaded yet.</p>
+                @endif
             </div>
 
             {{-- NOTES TAB --}}
