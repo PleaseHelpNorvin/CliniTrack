@@ -6,10 +6,67 @@
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Welcome to the School Clinic Dashboard</h1>
-    <p>User Index</p>   
-    <!-- <p>This is your admin dashboard. You can add charts, stats, or quick links here.</p> -->
-    <!-- <canvas id="myChart" width="400" height="200"></canvas> -->
+    <h1 class="mb-4">Manage your Users</h1>
+
+    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">Add User</a>
+
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <form action="{{ route('admin.users.index') }}" method="GET" class="row mb-4 ">
+        <div class="col-md-4">
+            <input type="text" name="search" class="form-control" placeholder="Search name or email..."
+                value="{{ request('search') }}">
+        </div>
+
+        <div class="col-md-3">
+            <select name="role" class="form-select">
+                <option value="all" {{ request('role') == 'all' ? 'selected' : '' }}>All Roles</option>
+                <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                <option value="nurse" {{ request('role') == 'nurse' ? 'selected' : '' }}>Nurse</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-secondary w-100">Filter</button>
+        </div>
+
+        <div class="col-md-2">
+            <a href="{{ route('admin.users.index') }}" class="btn btn-outline-dark w-100">Reset</a>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th width="200px">Action</th>
+            </tr>
+
+            @foreach ($users as $user)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ ucfirst($user->role) }}</td>
+                <td>
+                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('admin.users.destroy',$user->id) }}" method="POST" style="display:inline;">
+                        @csrf @method('DELETE')
+                        <button class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+
+    {{ $users->links('pagination::bootstrap-5') }}
 
 </div>
 @endsection

@@ -30,6 +30,11 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::prefix('users')->group(function (){
         Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
+        Route::get('/create', [UserController::class, 'create'])->name('admin.users.create');
+        Route::post('/store', [UserController::class, 'store'])->name('admin.users.store');
+        Route::get('/edit/{user}', [UserController::class, 'edit'])->name('admin.users.edit');
+        Route::post('/update/{user}', [UserController::class, 'update'])->name('admin.users.update');
+        Route::delete('/delete/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
     }); 
     Route::prefix('students')->group(function (){
         Route::get('/', [StudentController::class, 'index'])->name('admin.students.index');

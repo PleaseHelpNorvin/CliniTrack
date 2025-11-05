@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('student_number')->unique();
-            $table->string('grade_level');
+            $table->unsignedTinyInteger('grade_level');
             $table->string('section')->nullable();
             $table->date('dob')->nullable();
             $table->string('contact_number')->nullable();

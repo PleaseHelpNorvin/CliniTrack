@@ -14,14 +14,24 @@
         font-weight: bold;
         border-color: #0d6efd !important;
     }
-
+    html, body {
+      height: 100%;
+    }
+    
     body {
       overflow-x: hidden;
     }
 
+    footer {
+      margin-top: auto;
+    }
+
+    
+
     /* Layout Wrapper */
     #wrapper {
       display: flex;
+      min-height: 100vh;
       width: 100%;
       transition: all 0.3s ease;
     }
@@ -39,10 +49,11 @@
 
     /* Page Content Area */
     #content-area {
-      flex-grow: 1;
-            transition: all 0.3s ease;
-
+      min-height: calc(100vh - 56px);
       margin-left: 250px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
     }
 
     /* Navbar */

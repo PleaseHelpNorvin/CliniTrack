@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Student extends Model
 {
@@ -26,6 +27,20 @@ class Student extends Model
     public function getAgeAttribute()
     {
         return Carbon::parse($this->dob)->age;
+    }
+
+    public function getGradeTextAttribute()
+    {
+        $map = [
+            11 => 'Grade 11',
+            12 => 'Grade 12',
+            21 => '1st Year College',
+            22 => '2nd Year College',
+            23 => '3rd Year College',
+            24 => '4th Year College',
+        ];
+
+        return $map[$this->grade_level] ?? 'Unknown';
     }
 
     // Relationship: a student can have many notifications
