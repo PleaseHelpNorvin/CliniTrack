@@ -174,18 +174,6 @@
                 </div>
             </div>
 
-
-            <!-- {{-- DOCUMENTS TAB --}}
-            <div class="tab-pane fade" id="documents">
-                <ul class="list-group">
-                    @foreach($student->documents as $doc)
-                    <li class="list-group-item">
-                        <a href="{{ $doc->url }}" target="_blank">{{ $doc->name }}</a>
-                    </li>
-                    @endforeach
-                </ul>
-            </div> -->
-
             {{-- DOCUMENTS TAB --}}
             <div class="tab-pane fade" id="documents">
                 

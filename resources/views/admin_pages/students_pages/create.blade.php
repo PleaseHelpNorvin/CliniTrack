@@ -11,19 +11,7 @@
         <form action="{{ route('admin.students.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            {{-- ✅ Show global validation errors --}}
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>There were some errors:</strong>
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            {{-- ✅ Profile Image --}}
+            {{-- Profile Image --}}
             <div class="mb-3 text-center">
                 <img id="photoPreview" src="{{ asset('App/images/no-image-default.jpg') }}"
                     alt="Student Photo"
