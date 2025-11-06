@@ -5,6 +5,8 @@
 @section('page-title', 'User Index')
 
 @section('content')
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
 <!-- <div class="container"> -->
     <h1 class="mb-4">Manage your Users</h1>
 
@@ -74,6 +76,8 @@
     {{ $users->links('pagination::bootstrap-5') }}
 
 <!-- </div> -->
+</div>
+</div>
 @endsection
 
 <!-- ✅ View all users

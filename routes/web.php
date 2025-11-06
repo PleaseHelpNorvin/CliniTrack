@@ -55,6 +55,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     
     Route::prefix('reports')->group(function (){
         Route::get('/', [AdminReports::class, 'index'])->name('admin.reports.index');
+        Route::get('/export/{format}', [AdminReports::class, 'export'])->name('admin.reports.export');
+
     }); 
     Route::prefix('logs')->group(function (){
         Route::get('/', [ActivityLogController::class, 'index'])->name('admin.logs.index');
