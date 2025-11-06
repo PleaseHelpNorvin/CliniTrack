@@ -44,7 +44,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/view/{student}',[StudentController::class, 'view'])->name('admin.students.view');
         Route::get('/edit/{student}',[StudentController::class, 'edit'])->name('admin.students.edit');
         Route::post('/update/{student}',[StudentController::class, 'update'])->name('admin.students.update');
-        Route::get('/destroy/{student}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
+        Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
     }); 
 
     Route::prefix('documents')->group(function () {

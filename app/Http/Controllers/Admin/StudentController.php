@@ -123,47 +123,48 @@ class StudentController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'grade_level' => 'nullable',
-            'grade_level_other' => 'nullable|max:255',
+            'grade_level_other' => 'nullable|string|max:255',
             'section' => 'nullable|string|max:255',
             'dob' => 'nullable|date',
             'contact_number' => 'nullable|string|max:255',
-            'email' => 'nullable|email',
+            'email' => 'nullable|email|max:255',
             'address' => 'nullable|string|max:255',
-
-            // ✅ allow multiple document uploads
-            'documents.*' => 'file|mimes:pdf,jpg,jpeg,png|max:2048',
-            // ✅ profile photo
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'allergies' => 'nullable|string|max:255',
+            'medical_notes' => 'nullable|string|max:5000',
         ]);
 
-        // ✅ Handle profile photo upload
-        if($request->hasFile('photo')) {
-            if($student->photo && \Storage::exists('public/'.$student->photo)) {
-                \Storage::delete('public/'.$student->photo);
+        if ($request->hasFile('photo')) {
+            if ($student->photo && \Storage::exists('public/' . $student->photo)) {
+                \Storage::delete('public/' . $student->photo);
             }
+
             $validated['photo'] = $request->file('photo')->store('students/photos', 'public');
         }
 
-        // ✅ Save student info
         $student->update($validated);
 
-        // ✅ Handle document uploads
-        if($request->hasFile('documents')) {
-            foreach ($request->file('documents') as $file) {
-                $path = $file->store('students/documents', 'public');
-
-                $student->documents()->create([
-                    'path' => $path,
-                    'type' => 'document'
-                ]);
-            }
-        }
-
-        return redirect()->route('admin.students.view', $student->id)
+        return redirect()
+            ->route('admin.students.view', $student->id)
             ->with('success', 'Student updated successfully!');
     }
 
-    public function destroy(){
-        
+    public function destroy(Student $student)
+    {
+        if ($student->photo && \Storage::exists('public/' . $student->photo)) {
+            \Storage::delete('public/' . $student->photo);
+        }
+
+        foreach ($student->documents as $doc) {
+            if ($doc->path && \Storage::exists('public/' . $doc->path)) {
+                \Storage::delete('public/' . $doc->path);
+            }
+        }
+
+        $student->delete();
+
+        return redirect()
+            ->route('admin.students.index')
+            ->with('success', 'Student deleted successfully!');
     }
 }
