@@ -8,7 +8,7 @@
 <div class="card shadow-sm mb-4">
     <div class="card-body">
 <!-- <div class="container"> -->
-    <h1 class="mb-4">Manage your Users</h1>
+    <!-- <h1 class="mb-4">Manage your Users</h1> -->
 
     <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">Add User</a>
 

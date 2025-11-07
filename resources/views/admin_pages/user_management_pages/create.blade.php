@@ -3,8 +3,8 @@
 @section('page-title', 'Add User')
 
 @section('content')
-<!-- <div class="container mt-4"> -->
-
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
 <form action="{{ route('admin.users.store') }}" method="POST">
     @csrf
 
@@ -36,5 +36,6 @@
 
 </form>
 
-<!-- </div> -->
+</div>
+</div>
 @endsection

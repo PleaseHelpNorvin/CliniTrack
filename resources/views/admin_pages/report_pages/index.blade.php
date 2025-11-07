@@ -25,69 +25,67 @@
                 </a>
             </div>
         </form>
+    </div>
+</div>
 
-        {{-- Summary Stats --}}
-        <div class="row text-center mb-4">
-            <div class="col-md-3">
-                <div class="card p-3 bg-light border-0 shadow-sm">
-                    <h5>Total Visits</h5>
-                    <h3>{{ $totalVisits }}</h3>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card p-3 bg-light border-0 shadow-sm">
-                    <h5>Treated</h5>
-                    <h3>{{ $treated }}</h3>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card p-3 bg-light border-0 shadow-sm">
-                    <h5>Referred</h5>
-                    <h3>{{ $referred }}</h3>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card p-3 bg-light border-0 shadow-sm">
-                    <h5>Sent Home</h5>
-                    <h3>{{ $sentHome }}</h3>
-                </div>
-            </div>
-        </div>
-        <!-- static for development value -->
-    <div class="row mb-4">
-        <!-- <div class="col-md-6">
-            <h5 class="fw-bold">Trends of Clinic Visits</h5>
-            <canvas id="visitsChart"
-                data-labels='["Jan", "Feb", "Mar", "Apr", "May"]'
-                data-counts='[10, 15, 7, 20, 12]'></canvas>
-        </div>
-
-        <div class="col-md-6">
-            <h5 class="fw-bold">Most Common Reasons</h5>
-            <canvas class="chart-small" id="reasonsChart"
-                data-labels='["Cold", "Flu", "Fever", "Headache", "Injury"]'
-                data-counts='[5, 8, 3, 6, 2]'></canvas>
-        </div> -->
-
-            <!-- dynamic value -->
-        {{-- Charts --}}
-        <div class="col-md-6">
-            <h5 class="fw-bold">Trends of Clinic Visits</h5>
-            <canvas id="visitsChart"
-                data-labels='@json($trendDates)'
-                data-counts='@json($trendCounts)'></canvas>
-        </div>
-
-        {{-- Common Reasons --}}
-        <div class="col-md-6">
-            <h5 class="fw-bold">Most Common Reasons</h5>
-            <canvas class="chart-small" id="reasonsChart"
-                data-labels='@json($reasonsLabels)'
-                data-counts='@json($reasonsCounts)'></canvas>
+<div class="row g-4 text-center mb-4">
+    <div class="col-md-3 d-flex">
+        <div class="card p-3  shadow-sm flex-fill">
+            <h5>Total Visits</h5>
+            <h3>{{ $totalVisits }}</h3>
         </div>
     </div>
-        
 
+    <div class="col-md-3 d-flex">
+        <div class="card p-3 shadow-sm flex-fill">
+            <h5>Treated</h5>
+            <h3>{{ $treated }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3 d-flex">
+        <div class="card p-3 shadow-sm flex-fill">
+            <h5>Referred</h5>
+            <h3>{{ $referred }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3 d-flex">
+        <div class="card p-3 shadow-sm flex-fill">
+            <h5>Sent Home</h5>
+            <h3>{{ $sentHome }}</h3>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row mb-4 g-4">
+    <div class="col-md-6 d-flex">
+        <div class="card shadow-sm flex-fill">
+            <div class="card-body d-flex flex-column">
+                <h5 class="fw-bold">Trends of Clinic Visits</h5>
+                <canvas id="visitsChart"
+                    data-labels='@json($trendDates)'
+                    data-counts='@json($trendCounts)'></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 d-flex">
+        <div class="card shadow-sm flex-fill">
+            <div class="card-body d-flex flex-column">
+                <h5 class="fw-bold">Most Common Reasons</h5>
+                <canvas class="chart-small" id="reasonsChart"
+                    data-labels='@json($reasonsLabels)'
+                    data-counts='@json($reasonsCounts)'></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
         {{-- Table --}}
         <h5 class="fw-bold mt-4">Visit Records</h5>
         <div class="table-responsive">

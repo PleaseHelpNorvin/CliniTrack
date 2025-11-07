@@ -3,8 +3,8 @@
 @section('page-title', 'Edit User')
 
 @section('content')
-<!-- <div class="container"> -->
-
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
     <h3 class="mb-3">Edit User {{$user->name}}</h3>
 
     <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
@@ -76,5 +76,7 @@
 
     </form>
 
-<!-- </div> -->
+
+</div>
+</div>
 @endsection
