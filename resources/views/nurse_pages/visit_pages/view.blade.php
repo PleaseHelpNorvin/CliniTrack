@@ -11,10 +11,11 @@
     </a>
 </div>
 
+
 <div class="card shadow-sm">
     <div class="card-body">
 
-        {{-- 🧑‍⚕️ Student & Nurse Info --}}
+        {{-- Student & Nurse Info --}}
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
                 <div class="p-3 border rounded shadow-sm">

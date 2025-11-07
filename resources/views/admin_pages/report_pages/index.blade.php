@@ -6,7 +6,7 @@
 @section('content')
 <div class="card shadow-sm mb-4">
     <div class="card-body">
-        {{-- ✅ Filter Section --}}
+        {{--  Filter Section --}}
         <form method="GET" action="{{ route('admin.reports.index') }}" class="row g-3 mb-4">
             <div class="col-md-3">
                 <label class="form-label fw-bold">From</label>
@@ -26,7 +26,7 @@
             </div>
         </form>
 
-        {{-- ✅ Summary Stats --}}
+        {{-- Summary Stats --}}
         <div class="row text-center mb-4">
             <div class="col-md-3">
                 <div class="card p-3 bg-light border-0 shadow-sm">
@@ -70,7 +70,7 @@
         </div> -->
 
             <!-- dynamic value -->
-        {{-- ✅ Charts --}}
+        {{-- Charts --}}
         <div class="col-md-6">
             <h5 class="fw-bold">Trends of Clinic Visits</h5>
             <canvas id="visitsChart"
@@ -78,7 +78,7 @@
                 data-counts='@json($trendCounts)'></canvas>
         </div>
 
-        {{-- ✅ Common Reasons --}}
+        {{-- Common Reasons --}}
         <div class="col-md-6">
             <h5 class="fw-bold">Most Common Reasons</h5>
             <canvas class="chart-small" id="reasonsChart"
@@ -88,7 +88,7 @@
     </div>
         
 
-        {{-- ✅ Table --}}
+        {{-- Table --}}
         <h5 class="fw-bold mt-4">Visit Records</h5>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">

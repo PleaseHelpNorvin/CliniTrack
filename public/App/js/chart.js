@@ -59,3 +59,36 @@ if (reasonsChartElement) {
         options: { responsive: true }
     });
 }
+const nurseReasonsChartElement = document.getElementById('nurseReasonsChart');
+if(nurseReasonsChartElement) {
+    const ctxReasons = nurseReasonsChartElement.getContext('2d');
+    new Chart(ctxReasons, {
+        type: 'bar',
+        data: {
+            labels: JSON.parse(nurseReasonsChartElement.dataset.labels),
+            datasets: [{
+                label: 'Visits',
+                data: JSON.parse(nurseReasonsChartElement.dataset.counts),
+                backgroundColor: '#0d6efd'
+            }]
+        },
+        options: { responsive: true, plugins:{legend:{display:false}} }
+    });
+}
+
+const nurseVisitsChartElement = document.getElementById('nurseVisitsChart');
+if(nurseVisitsChartElement) {
+    const ctxVisits = nurseVisitsChartElement.getContext('2d');
+    new Chart(ctxVisits, {
+        type: 'bar',
+        data: {
+            labels: JSON.parse(nurseVisitsChartElement.dataset.labels),
+            datasets: [{
+                label: 'Visits',
+                data: JSON.parse(nurseVisitsChartElement.dataset.counts),
+                backgroundColor: '#0d6efd'
+            }]
+        },
+        options: { responsive: true, plugins:{legend:{display:false}} }
+    });
+}

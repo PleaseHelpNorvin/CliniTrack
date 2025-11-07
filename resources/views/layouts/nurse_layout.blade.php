@@ -92,11 +92,13 @@
 
   </div>
 </div>
-
 <script src="{{ asset('Jquery-3.7.1/js/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('Bootstrap5/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('Select2_4.0.13/dist/js/select2.min.js') }}"></script>
+<script src="{{ asset('Chartjs/Chartjs4.5.1/chart.umd.min.js') }}"></script>
+<script src="{{ asset('App/js/chart.js') }}"></script>
 <script src="{{ asset('App/js/select.js') }}"></script>
+
 
 <script>
   const wrapper = document.getElementById('wrapper');
