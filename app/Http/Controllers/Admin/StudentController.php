@@ -80,6 +80,8 @@ class StudentController extends Controller
             'address' => 'required|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'documents.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'allergies' => 'nullable|max:255',
+            'medical_notes' => 'nullable|max:255'
         ]);
 
         // Handle profile photo

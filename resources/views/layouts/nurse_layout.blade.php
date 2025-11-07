@@ -16,6 +16,9 @@
     }
 
     body { overflow-x: hidden; }
+    .table-responsive {
+        overflow-x: auto !important;
+    }
 
     #wrapper { display:flex; width:100%; transition:0.3s; }
     #sidebar-wrapper { width:250px; height:100vh; position:fixed; top:0; left:0; background:#f8f9fa; transition: all 0.3s ease;  }

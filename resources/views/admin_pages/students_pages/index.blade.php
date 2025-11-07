@@ -28,7 +28,7 @@
 </form>
 
 <div class="table-responsive">
-    <table class="table table-bordered w-100">
+    <table class="table table-bordered table-hover w-100">
         <thead>
             <tr>
                 <th>#</th>

@@ -12,47 +12,120 @@ use App\Models\Student;
 class VisitController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $visits = Visit::with('student')->latest()->get();
+        $query = Visit::with('student')->latest();
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('student', function($q) use ($search) {
+                $q->where('first_name', 'like', "%$search%")
+                ->orWhere('last_name', 'like', "%$search%");
+            });
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('visited_at', $request->date);
+        }
+
+        if ($request->filled('reason')) {
+            $query->where('reason', $request->reason);
+        }
+
+        $visits = $query->get();
+
         return view('nurse_pages.visit_pages.index', compact('visits'));
     }
 
-    public function view() {
-        return view('nurse_pages.visit_pages.view');
+    public function view(Visit $visit) {
+        return view('nurse_pages.visit_pages.view', compact('visit'));
     }
 
     public function create()
     {
-        // Get all students to select from
         $students = Student::orderBy('first_name')->get();
         return view('nurse_pages.visit_pages.create', compact('students'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'student_id' => 'required|exists:students,id',
-            'visited_at' => 'required|date',
-            'reason' => 'required',
-            'status' => 'required',
+        $validated = $request->validate([
+            'student_id'     => 'required|exists:students,id',
+            'visited_at'     => 'required|date',
+            'reason'         => 'required',
+            'status'         => 'required',
+            'other_reason'   => 'required_if:reason,other',
+            'referred_to'    => 'required_if:status,referred',
+            'temperature'    => 'nullable|string',
+            'blood_pressure' => 'nullable|string',
+            'pulse_rate'     => 'nullable|string',
+            'treatment_given'=> 'nullable|string',
+            'nurse_notes'    => 'nullable|string',
+            'emergency'      => 'sometimes|boolean',
         ]);
 
         Visit::create([
-            'student_id' => $request->student_id,
-            'nurse_id' => Auth::id(),
-            'visited_at' => $request->visited_at,
-            'reason' => $request->reason,
-            'temperature' => $request->temperature,
+            'student_id'     => $request->student_id,
+            'nurse_id'       => Auth::id(),
+            'visited_at'     => $request->visited_at,
+            'reason'         => $request->reason, // always enum value
+            'other_reason'   => $request->reason === 'other' ? $request->other_reason : null,
+            'temperature'    => $request->temperature,
             'blood_pressure' => $request->blood_pressure,
-            'pulse_rate' => $request->pulse_rate,
-            'treatment_given' => $request->treatment_given,
-            'nurse_notes' => $request->nurse_notes,
-            'status' => $request->status,
-            'referred_to' => $request->referred_to,
-            'emergency' => $request->has('emergency'),
+            'pulse_rate'     => $request->pulse_rate,
+            'treatment_given'=> $request->treatment_given,
+            'nurse_notes'    => $request->nurse_notes,
+            'status'         => $request->status,
+            'referred_to'    => $request->status === 'referred' ? $request->referred_to : null,
+            'emergency'      => $request->has('emergency'),
         ]);
 
-        return redirect()->route('nurse.visits.index')->with('success', 'Visit added successfully!');
+        return redirect()->route('nurse.visits.index')
+                        ->with('success', 'Visit added successfully!');
+    }
+
+    public function edit(Visit $visit) {
+        $students = Student::orderBy('first_name')->get();
+        return view('nurse_pages.visit_pages.edit', compact('visit', 'students'));
+    }
+
+
+    public function update(Request $request, Visit $visit) {
+        $validated = $request->validate([
+            'student_id'     => 'required|exists:students,id',
+            'visited_at'     => 'required|date',
+            'reason'         => 'required',
+            'status'         => 'required',
+            'other_reason'   => 'required_if:reason,other',
+            'referred_to'    => 'required_if:status,referred',
+            'temperature'    => 'nullable|string',
+            'blood_pressure' => 'nullable|string',
+            'pulse_rate'     => 'nullable|string',
+            'treatment_given'=> 'nullable|string',
+            'nurse_notes'    => 'nullable|string',
+            'emergency'      => 'sometimes|boolean',
+        ]);
+
+        $visit->update([
+            'student_id'     => $request->student_id,
+            'visited_at'     => $request->visited_at,
+            'reason'         => $request->reason,
+            'other_reason'   => $request->reason === 'other' ? $request->other_reason : null,
+            'temperature'    => $request->temperature,
+            'blood_pressure' => $request->blood_pressure,
+            'pulse_rate'     => $request->pulse_rate,
+            'treatment_given'=> $request->treatment_given,
+            'nurse_notes'    => $request->nurse_notes,
+            'status'         => $request->status,
+            'referred_to'    => $request->status === 'referred' ? $request->referred_to : null,
+            'emergency'      => $request->has('emergency'),
+        ]);
+
+        return redirect()->route('nurse.visits.index')->with('success', 'Visit updated successfully!');
+    }
+
+
+    public function destroy(Visit $visit) {
+        $visit->delete();
+        return redirect()->route('nurse.visits.index')->with('success', 'Visit deleted successfully!');
     }
 }

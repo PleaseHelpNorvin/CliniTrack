@@ -72,12 +72,17 @@ Route::prefix('nurse')->middleware(['auth', 'role:nurse'])->group(function () {
     Route::prefix('patients')->group(function (){
         Route::get('/', [PatientController::class, 'index'])->name('nurse.patients.index');
     }); 
-    Route::prefix('visits')->group(function (){
-        Route::get('/', [VisitController::class, 'index'])->name('nurse.visits.index');
-        Route::get('/view', [VisitController::class, 'view'])->name('nurse.visits.view');
-        Route::get('/create', [VisitController::class, 'create'])->name('nurse.visits.create');
-        Route::post('/store', [VisitController::class, 'store'])->name('nurse.visits.store');
-    }); 
+
+    Route::prefix('visits')->group(function () {
+        Route::get('/', [VisitController::class, 'index'])->name('nurse.visits.index');       // List visits
+        Route::get('/create', [VisitController::class, 'create'])->name('nurse.visits.create'); // Show create form
+        Route::post('/store', [VisitController::class, 'store'])->name('nurse.visits.store');  // Store visit
+        Route::get('/view/{visit}', [VisitController::class, 'view'])->name('nurse.visits.view'); // View a visit
+        Route::get('/edit/{visit}', [VisitController::class, 'edit'])->name('nurse.visits.edit'); // Edit form
+        Route::put('/update/{visit}', [VisitController::class, 'update'])->name('nurse.visits.update'); // Update
+        Route::delete('/destroy/{visit}', [VisitController::class, 'destroy'])->name('nurse.visits.destroy'); // Delete
+    });
+
     Route::prefix('reports')->group(function (){
         Route::get('/', [NurseReports::class, 'index'])->name('nurse.reports.index');
     }); 

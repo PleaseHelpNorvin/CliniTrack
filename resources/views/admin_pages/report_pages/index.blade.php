@@ -55,7 +55,7 @@
         </div>
         <!-- static for development value -->
     <div class="row mb-4">
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <h5 class="fw-bold">Trends of Clinic Visits</h5>
             <canvas id="visitsChart"
                 data-labels='["Jan", "Feb", "Mar", "Apr", "May"]'
@@ -67,11 +67,11 @@
             <canvas class="chart-small" id="reasonsChart"
                 data-labels='["Cold", "Flu", "Fever", "Headache", "Injury"]'
                 data-counts='[5, 8, 3, 6, 2]'></canvas>
-        </div>
-    </div>
+        </div> -->
+
             <!-- dynamic value -->
-        <!-- {{-- ✅ Charts --}}
-        <div class="mb-4">
+        {{-- ✅ Charts --}}
+        <div class="col-md-6">
             <h5 class="fw-bold">Trends of Clinic Visits</h5>
             <canvas id="visitsChart"
                 data-labels='@json($trendDates)'
@@ -79,12 +79,14 @@
         </div>
 
         {{-- ✅ Common Reasons --}}
-        <div class="mb-4">
+        <div class="col-md-6">
             <h5 class="fw-bold">Most Common Reasons</h5>
-            <canvas id="reasonsChart"
+            <canvas class="chart-small" id="reasonsChart"
                 data-labels='@json($reasonsLabels)'
                 data-counts='@json($reasonsCounts)'></canvas>
-        </div> -->
+        </div>
+    </div>
+        
 
         {{-- ✅ Table --}}
         <h5 class="fw-bold mt-4">Visit Records</h5>

@@ -195,6 +195,34 @@
                 </div>
             </div>
 
+            <div class="mb-3 row">
+                <label class="col-md-3 col-form-label fw-bold">Allergies</label>
+                <div class="col-md-9">
+                    <input type="text" name="allergies"
+                        class="form-control @error('allergies') is-invalid @enderror"
+                        value="{{ old('allergies') }}"
+                        placeholder="Enter allergies if any">
+
+                    @error('allergies')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-md-3 col-form-label fw-bold">Medical Notes</label>
+                <div class="col-md-9">
+                    <textarea name="medical_notes"
+                        class="form-control @error('medical_notes') is-invalid @enderror"
+                        placeholder="Enter any medical notes">{{ old('medical_notes') }}</textarea>
+
+                    @error('medical_notes')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+
             {{-- Buttons --}}
             <div class="text-end">
                 <a href="{{ route('admin.students.index') }}" class="btn btn-secondary me-2">Cancel</a>

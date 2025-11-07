@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('reason', [
                 'sick','injury','checkup','headache','fever','stomachache','menstrual','asthma','toothache','other'
             ])->default('other');
-
+            $table->string('other_reason')->nullable();
             $table->string('temperature')->nullable();
             $table->string('blood_pressure')->nullable();
             $table->string('pulse_rate')->nullable();

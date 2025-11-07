@@ -11,6 +11,7 @@ class Visit extends Model
         'nurse_id',
         'visited_at',
         'reason',
+        'other_reason',
         'temperature',
         'blood_pressure',
         'pulse_rate',
@@ -19,6 +20,10 @@ class Visit extends Model
         'status',
         'referred_to',
         'emergency',
+    ];
+
+    protected $casts = [
+        'visited_at' => 'datetime', // ← ensures Laravel converts it to Carbon
     ];
 
     // Relationship: visit belongs to a student
@@ -32,6 +37,8 @@ class Visit extends Model
     {
         return $this->belongsTo(User::class, 'nurse_id');
     }
+
+    
 
     public function getNurseNameAttribute()
     {

@@ -19,21 +19,21 @@
             <div class="col-sm-12 col-md-6 mb-3">
                 <div class="p-3 border rounded shadow-sm">
                     <h6 class="fw-bold">Student Name:</h6>
-                    <p>John Doe</p>
+                    <p>{{ $visit->student->first_name }} {{ $visit->student->last_name }}</p>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <div class="p-3 border rounded shadow-sm">
                     <h6 class="fw-bold">Nurse Attended:</h6>
-                    <p>Nurse Joy</p>
+                    <p>{{ $visit->nurse_name }}</p>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <div class="p-3 border rounded shadow-sm">
                     <h6 class="fw-bold">Visited At:</h6>
-                    <p>2025-11-07 10:00 AM</p>
+                    <p>{{ \Carbon\Carbon::parse($visit->visited_at)->format('Y-m-d h:i A') }}</p>
                 </div>
             </div>
 
@@ -41,7 +41,11 @@
                 <div class="p-3 border rounded shadow-sm">
                     <h6 class="fw-bold">Emergency Case:</h6>
                     <p>
-                        <span class="badge bg-danger">Yes</span>
+                        @if($visit->emergency)
+                            <span class="badge bg-danger">Yes</span>
+                        @else
+                            <span class="badge bg-secondary">No</span>
+                        @endif
                     </p>
                 </div>
             </div>
@@ -53,15 +57,23 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-4 mb-2">
                         <h6 class="fw-bold">Reason:</h6>
-                        <p>Fever</p>
+                        <p>{{ $visit->reason === 'other' ? $visit->other_reason : ucfirst($visit->reason) }}</p>
                     </div>
                     <div class="col-sm-12 col-md-4 mb-2">
                         <h6 class="fw-bold">Status:</h6>
-                        <p><span class="badge bg-success">Treated</span></p>
+                        @php
+                            $statusClass = match($visit->status) {
+                                'treated'   => 'success',
+                                'referred'  => 'warning',
+                                'sent_home' => 'secondary',
+                                default     => 'light'
+                            };
+                        @endphp
+                        <p><span class="badge bg-{{ $statusClass }}">{{ ucfirst(str_replace('_', ' ', $visit->status)) }}</span></p>
                     </div>
                     <div class="col-sm-12 col-md-4 mb-2">
                         <h6 class="fw-bold">Referred To:</h6>
-                        <p>-</p>
+                        <p>{{ $visit->referred_to ?? '-' }}</p>
                     </div>
                 </div>
             </div>
@@ -73,15 +85,15 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-4 mb-2">
                         <h6 class="fw-bold">Temperature:</h6>
-                        <p>37.5°C</p>
+                        <p>{{ $visit->temperature ?? '-' }}°C</p>
                     </div>
                     <div class="col-sm-12 col-md-4 mb-2">
                         <h6 class="fw-bold">Blood Pressure:</h6>
-                        <p>120/80 mmHg</p>
+                        <p>{{ $visit->blood_pressure ?? '-' }}</p>
                     </div>
                     <div class="col-sm-12 col-md-4 mb-2">
                         <h6 class="fw-bold">Pulse Rate:</h6>
-                        <p>78 bpm</p>
+                        <p>{{ $visit->pulse_rate ?? '-' }} bpm</p>
                     </div>
                 </div>
             </div>
@@ -91,10 +103,10 @@
         <div class="card mb-3 border-light shadow-sm">
             <div class="card-body">
                 <h6 class="fw-bold">Treatment Given:</h6>
-                <p>Administered paracetamol and advised rest.</p>
+                <p>{{ $visit->treatment_given ?? '-' }}</p>
 
                 <h6 class="fw-bold mt-3">Nurse Notes:</h6>
-                <p>Patient’s temperature reduced after 30 minutes. Observed stable condition before discharge.</p>
+                <p>{{ $visit->nurse_notes ?? '-' }}</p>
             </div>
         </div>
 
