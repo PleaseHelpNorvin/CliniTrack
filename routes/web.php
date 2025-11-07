@@ -74,6 +74,9 @@ Route::prefix('nurse')->middleware(['auth', 'role:nurse'])->group(function () {
     }); 
     Route::prefix('visits')->group(function (){
         Route::get('/', [VisitController::class, 'index'])->name('nurse.visits.index');
+        Route::get('/view', [VisitController::class, 'view'])->name('nurse.visits.view');
+        Route::get('/create', [VisitController::class, 'create'])->name('nurse.visits.create');
+        Route::post('/store', [VisitController::class, 'store'])->name('nurse.visits.store');
     }); 
     Route::prefix('reports')->group(function (){
         Route::get('/', [NurseReports::class, 'index'])->name('nurse.reports.index');

@@ -6,6 +6,7 @@
   <title>@yield('title', 'Nurse Panel')</title>
 
   <link rel="stylesheet" href="{{ asset('Bootstrap5/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('Select2_4.0.13/dist/css/select2.min.css') }}" rel="stylesheet" />
 
   <style>
     .list-group-item.active {
@@ -89,7 +90,10 @@
   </div>
 </div>
 
+<script src="{{ asset('Jquery-3.7.1/js/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('Bootstrap5/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('Select2_4.0.13/dist/js/select2.min.js') }}"></script>
+<script src="{{ asset('App/js/select.js') }}"></script>
 
 <script>
   const wrapper = document.getElementById('wrapper');

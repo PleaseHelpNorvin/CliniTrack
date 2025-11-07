@@ -65,11 +65,12 @@
                     </select>
 
                     {{-- ✅ Other Grade Input --}}
-                    <input type="text" name="grade_level_other" class="form-control mt-2"
-                        id="grade_level_other"
-                        value="{{ $student->grade_level_other }}"
-                        style="{{ $student->grade_level == 0 ? '' : 'display:none;' }}"
-                        placeholder="Type other grade...">
+                        <input type="text" 
+                            name="grade_level_other" 
+                            id="grade_level_other"
+                            class="form-control mt-2 {{ $student->grade_level == 0 ? '' : 'd-none' }}"
+                            value="{{ $student->grade_level_other }}"
+                            placeholder="Type other grade...">
                 </div>
             </div>
 

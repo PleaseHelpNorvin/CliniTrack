@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ReportController extends Controller
 {
@@ -54,12 +56,12 @@ class ReportController extends Controller
         $visits = Visit::with(['student', 'nurse'])->get();
 
         if ($format === 'pdf') {
-            $pdf = \PDF::loadView('admin_pages.report_pages.pdf', compact('visits'));
+            $pdf = PDF::loadView('admin_pages.report_pages.pdf', compact('visits'));
             return $pdf->download('clinic-report.pdf');
         }
 
         if ($format === 'excel') {
-            return \Excel::download(new \App\Exports\VisitsExport, 'clinic-report.xlsx');
+            return Excel::download(new \App\Exports\VisitsExport, 'clinic-report.xlsx');
         }
     }
 

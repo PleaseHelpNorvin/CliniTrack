@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Student;
 
 class StudentController extends Controller
@@ -135,8 +136,8 @@ class StudentController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            if ($student->photo && \Storage::exists('public/' . $student->photo)) {
-                \Storage::delete('public/' . $student->photo);
+            if ($student->photo && Storage::exists('public/' . $student->photo)) {
+                Storage::delete('public/' . $student->photo);
             }
 
             $validated['photo'] = $request->file('photo')->store('students/photos', 'public');
@@ -151,13 +152,13 @@ class StudentController extends Controller
 
     public function destroy(Student $student)
     {
-        if ($student->photo && \Storage::exists('public/' . $student->photo)) {
-            \Storage::delete('public/' . $student->photo);
+        if ($student->photo && Storage::exists('public/' . $student->photo)) {
+            Storage::delete('public/' . $student->photo);
         }
 
         foreach ($student->documents as $doc) {
-            if ($doc->path && \Storage::exists('public/' . $doc->path)) {
-                \Storage::delete('public/' . $doc->path);
+            if ($doc->path && Storage::exists('public/' . $doc->path)) {
+                Storage::delete('public/' . $doc->path);
             }
         }
 

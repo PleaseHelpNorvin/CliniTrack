@@ -9,10 +9,16 @@ class Visit extends Model
     protected $fillable = [
         'student_id',
         'nurse_id',
-        'visit_time',
+        'visited_at',
         'reason',
-        'notes',
+        'temperature',
+        'blood_pressure',
+        'pulse_rate',
+        'treatment_given',
+        'nurse_notes',
         'status',
+        'referred_to',
+        'emergency',
     ];
 
     // Relationship: visit belongs to a student
@@ -26,4 +32,11 @@ class Visit extends Model
     {
         return $this->belongsTo(User::class, 'nurse_id');
     }
+
+    public function getNurseNameAttribute()
+    {
+        return $this->nurse ? $this->nurse->name : 'N/A';
+    }
+    // use case: {{ $visit->nurse_name }}
+
 }
