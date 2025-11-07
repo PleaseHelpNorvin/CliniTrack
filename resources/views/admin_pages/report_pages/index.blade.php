@@ -58,8 +58,6 @@
     </div>
 </div>
 
-
-
 <div class="row mb-4 g-4">
     <div class="col-md-6 d-flex">
         <div class="card shadow-sm flex-fill">
@@ -115,6 +113,7 @@
                     @endforelse
                 </tbody>
             </table>
+            
         </div>
     </div>
 </div>

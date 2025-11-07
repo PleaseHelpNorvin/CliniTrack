@@ -21,7 +21,7 @@
 @endif
 
 
-<div class="card shadow-sm">
+<div class="card shadow-sm mt-3">
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <a href="{{ route('nurse.visits.create') }}" class="btn btn-primary">
@@ -32,9 +32,9 @@
         {{-- 🔍 Filter Section --}}
         <!-- <div class="d-flex gap-2 mb-3"> -->
             <form method="GET" action="{{ route('nurse.visits.index') }}" class="d-flex gap-2 mb-3">
-                <input type="text" name="search" class="form-control w-25" placeholder="Search by student..." value="{{ request('search') }}">
+                <input type="text" name="search" class="form-control flex-grow-1" placeholder="Search by student..." value="{{ request('search') }}">
                 <input type="date" name="date" class="form-control w-25" value="{{ request('date') }}">
-                <select name="reason" class="form-select w-25">
+                <select id="reason" name="reason" class="form-select w-25">
                     <option value="">All Reasons</option>
                     <option value="sick" {{ request('reason') == 'sick' ? 'selected' : '' }}>sick</option>
                     <option value="injury" {{ request('reason') == 'injury' ? 'selected' : '' }}>injury</option>
@@ -57,8 +57,8 @@
         <!-- </div> -->
 
         {{-- 📋 Visits Table --}}
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" style="min-width: 700px;">
+     <div class="table-responsive mt-3 mt-md-0">
+            <table class="table table-bordered table-hover">
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
@@ -71,11 +71,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($visits as $index => $visit)
+                    @forelse($visits as $index => $visit)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $visit->student->first_name }} {{ $visit->student->last_name }}</td>
-                            <td>
+                            <td class="text-break" style="max-width: 250px;">
                                 @if($visit->reason === 'other')
                                     {{ $visit->other_reason ?? 'Other' }}
                                 @else
@@ -94,7 +94,7 @@
                                 @endphp
                                 <span class="badge bg-{{ $statusClass }}">{{ ucfirst(str_replace('_', ' ', $visit->status)) }}</span>
                             </td>
-                            <td>{{ $visit->nurse_notes ?? '-' }}</td>
+                            <td class="text-break" style="max-width: 250px;">{{ $visit->nurse_notes ?? '-' }}</td>
                             <td>
                                 <a href="{{ route('nurse.visits.view', $visit->id) }}" class="btn btn-sm btn-info">View</a>
                                 <a href="{{ route('nurse.visits.edit', $visit->id) }}" class="btn btn-sm btn-warning">Edit</a>
@@ -106,9 +106,16 @@
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
-                    </tbody>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">No visits found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
             </table>
+
+{{ $visits->links('pagination::bootstrap-5') }}
+
         </div>
     </div>
 </div>

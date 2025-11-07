@@ -31,7 +31,7 @@ class VisitController extends Controller
             $query->where('reason', $request->reason);
         }
 
-        $visits = $query->get();
+        $visits = $query->latest()->paginate(10)->withQueryString();
 
         return view('nurse_pages.visit_pages.index', compact('visits'));
     }
