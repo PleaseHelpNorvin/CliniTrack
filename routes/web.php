@@ -4,14 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\StudentController as AdminStudent;
 use App\Http\Controllers\Admin\ReportController as AdminReports;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\DocumentController;
 
 use App\Http\Controllers\Nurse\DashboardController as NurseDashboard;
-use App\Http\Controllers\Nurse\PatientController;
+use App\Http\Controllers\Nurse\StudentController as NurseStudent;
 use App\Http\Controllers\Nurse\ReportController as NurseReports;
 use App\Http\Controllers\Nurse\VisitController;
 
@@ -38,13 +38,13 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     }); 
 
     Route::prefix('students')->group(function (){
-        Route::get('/', [StudentController::class, 'index'])->name('admin.students.index');
-        Route::get('/create', [StudentController::class, 'create'])->name('admin.students.create');
-        Route::post('/store', [StudentController::class, 'store'])->name('admin.students.store');
-        Route::get('/view/{student}',[StudentController::class, 'view'])->name('admin.students.view');
-        Route::get('/edit/{student}',[StudentController::class, 'edit'])->name('admin.students.edit');
-        Route::post('/update/{student}',[StudentController::class, 'update'])->name('admin.students.update');
-        Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
+        Route::get('/', [AdminStudent::class, 'index'])->name('admin.students.index');
+        Route::get('/create', [AdminStudent::class, 'create'])->name('admin.students.create');
+        Route::post('/store', [AdminStudent::class, 'store'])->name('admin.students.store');
+        Route::get('/view/{student}',[AdminStudent::class, 'view'])->name('admin.students.view');
+        Route::get('/edit/{student}',[AdminStudent::class, 'edit'])->name('admin.students.edit');
+        Route::post('/update/{student}',[AdminStudent::class, 'update'])->name('admin.students.update');
+        Route::delete('/students/{student}', [AdminStudent::class, 'destroy'])->name('admin.students.destroy');
     }); 
 
     Route::prefix('documents')->group(function () {
@@ -69,8 +69,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 // Nurse routes
 Route::prefix('nurse')->middleware(['auth', 'role:nurse'])->group(function () {
     Route::get('/dashboard', [NurseDashboard::class, 'index'])->name('nurse.dashboard');
-    Route::prefix('patients')->group(function (){
-        Route::get('/', [PatientController::class, 'index'])->name('nurse.patients.index');
+    Route::prefix('students')->group(function (){
+        Route::get('/', [NurseStudent::class, 'index'])->name('nurse.students.index');
     }); 
 
     Route::prefix('visits')->group(function () {

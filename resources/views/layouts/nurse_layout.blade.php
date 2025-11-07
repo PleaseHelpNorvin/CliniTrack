@@ -52,9 +52,9 @@
         Dashboard
       </a>
 
-      <a href="{{ route('nurse.patients.index') }}" 
-        class="list-group-item list-group-item-action bg-light {{ request()->routeIs('nurse.patients.*') ? 'active' : '' }}">
-        Patients
+      <a href="{{ route('nurse.students.index') }}" 
+        class="list-group-item list-group-item-action bg-light {{ request()->routeIs('nurse.students.*') ? 'active' : '' }}">
+        Students
       </a>
 
       <a href="{{ route('nurse.visits.index') }}" 
