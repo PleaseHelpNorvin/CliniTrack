@@ -92,3 +92,46 @@ if(nurseVisitsChartElement) {
         options: { responsive: true, plugins:{legend:{display:false}} }
     });
 }
+
+const dashboardVisitChart = document.getElementById('dashboardVisitsChart');
+if(dashboardVisitChart){
+    const dbVisitCtx = dashboardVisitChart.getContext('2d');
+    new Chart(dbVisitCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+            datasets: [{
+                label: 'Visits',
+                data: [5, 7, 4, 8, 6],
+                backgroundColor: 'rgba(13, 110, 253, 0.7)',
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, stepSize: 1 } }
+        }
+    });
+
+    const dashboardSymptomsChart = document.getElementById('dashboardSymptomsChart');
+    if(dashboardSymptomsChart) {
+        const ctx2 = dashboardSymptomsChart.getContext('2d');
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['Fever', 'Injury', 'Headache', 'Checkup'],
+                datasets: [{
+                    data: [4, 2, 3, 1],
+                    backgroundColor: [
+                        'rgba(220,53,69,0.7)',
+                        'rgba(255,193,7,0.7)',
+                        'rgba(13,110,253,0.7)',
+                        'rgba(108,117,125,0.7)'
+                    ]
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+    }
+}

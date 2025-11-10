@@ -4,7 +4,7 @@
 @section('page-title', 'Clinic Reports')
 
 @section('content')
-<div class="card shadow-sm mb-4">
+<div class="card mb-4">
     <div class="card-body">
         {{--  Filter Section --}}
         <form method="GET" action="{{ route('admin.reports.index') }}" class="row g-3 mb-4">
@@ -30,28 +30,28 @@
 
 <div class="row g-4 text-center mb-4">
     <div class="col-md-3 d-flex">
-        <div class="card p-3  shadow-sm flex-fill">
+        <div class="card p-3   flex-fill">
             <h5>Total Visits</h5>
             <h3>{{ $totalVisits }}</h3>
         </div>
     </div>
 
     <div class="col-md-3 d-flex">
-        <div class="card p-3 shadow-sm flex-fill">
+        <div class="card p-3  flex-fill">
             <h5>Treated</h5>
             <h3>{{ $treated }}</h3>
         </div>
     </div>
 
     <div class="col-md-3 d-flex">
-        <div class="card p-3 shadow-sm flex-fill">
+        <div class="card p-3  flex-fill">
             <h5>Referred</h5>
             <h3>{{ $referred }}</h3>
         </div>
     </div>
 
     <div class="col-md-3 d-flex">
-        <div class="card p-3 shadow-sm flex-fill">
+        <div class="card p-3  flex-fill">
             <h5>Sent Home</h5>
             <h3>{{ $sentHome }}</h3>
         </div>
@@ -60,7 +60,7 @@
 
 <div class="row mb-4 g-4">
     <div class="col-md-6 d-flex">
-        <div class="card shadow-sm flex-fill">
+        <div class="card  flex-fill">
             <div class="card-body d-flex flex-column">
                 <h5 class="fw-bold">Trends of Clinic Visits</h5>
                 <canvas id="visitsChart"
@@ -71,7 +71,7 @@
     </div>
 
     <div class="col-md-6 d-flex">
-        <div class="card shadow-sm flex-fill">
+        <div class="card  flex-fill">
             <div class="card-body d-flex flex-column">
                 <h5 class="fw-bold">Most Common Reasons</h5>
                 <canvas class="chart-small" id="reasonsChart"
@@ -82,7 +82,7 @@
     </div>
 </div>
 
-<div class="card shadow-sm mb-4">
+<div class="card  mb-4">
     <div class="card-body">
         {{-- Table --}}
         <h5 class="fw-bold mt-0">Visit Records</h5>

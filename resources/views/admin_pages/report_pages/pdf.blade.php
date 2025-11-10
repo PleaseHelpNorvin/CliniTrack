@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    <h2>Clinic Visits Report</h2>
+    <h2>Clinitrack Visits Report</h2>
     <table>
         <thead>
             <tr>
