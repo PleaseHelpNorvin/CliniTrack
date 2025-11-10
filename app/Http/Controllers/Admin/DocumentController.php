@@ -6,14 +6,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\StudentDocument;
 use App\Models\Student;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+
 
 class DocumentController extends Controller
 {
     //
     public function create(Student $student)
     {
-        // send student id to view
-        return view('admin_pages.document_pages.create', compact('student'));
+        $prefix = request()->route()->getPrefix();
+        // dd($prefix, request()->route()->getName());
+
+        $role = Auth::user()->role;
+
+        $storeRoute = $role === 'admin'
+            ? route('admin.documents.store')
+            : route('nurse.documents.store');
+        return view('admin_pages.document_pages.create', compact('student', 'storeRoute'));
     }
 
     public function store(Request $request)
@@ -31,19 +41,37 @@ class DocumentController extends Controller
             'name' => $request->name,
             'path' => $path
         ]);
+        $role = Auth::user()->role;
+
+       $routeName = $role === 'admin'
+        ? 'admin.students.view'
+        : 'nurse.students.view';
+
 
         return redirect()
-            ->route('admin.students.view', $request->student_id)
+            ->route($routeName, $request->student_id)
             ->with('success', 'Document uploaded successfully!');
     }
 
-    public function destroy(StudentDocument $document)
-    {
-        \Storage::disk('public')->delete($document->path);
-        $document->delete();
+        public function destroy(Request $request, StudentDocument $document)
+        {
+            // Delete file from storage
+            Storage::disk('public')->delete($document->path);
+            $document->delete();
 
-        return back()->with('success', 'Document deleted.');
-    }
+            // Get authenticated user's role
+            $role = Auth::user()->role;
+
+            // Determine redirect route based on role
+            $routeName = $role === 'admin'
+                ? 'admin.students.view'
+                : 'nurse.students.view';
+
+            // Redirect back to the student's view with success message
+            return redirect()
+                ->route($routeName, $document->student_id)
+                ->with('success', 'Document deleted successfully.');
+        }
 
     
 }

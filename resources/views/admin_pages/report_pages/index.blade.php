@@ -85,8 +85,37 @@
 <div class="card shadow-sm mb-4">
     <div class="card-body">
         {{-- Table --}}
-        <h5 class="fw-bold mt-4">Visit Records</h5>
-        <div class="table-responsive">
+        <h5 class="fw-bold mt-0">Visit Records</h5>
+
+            <form method="GET" action="{{ route('admin.reports.index') }}" class="row g-2 align-items-end mb-3">
+                <div class="col-md-4 col-lg-5">
+                    <input type="text" name="search" class="form-control" 
+                        placeholder="Search by student, nurse, or reason..." 
+                        value="{{ request('search') }}">
+                </div>
+
+                <div class="col-md-2 col-lg-2">
+                    <select name="status" class="form-select">
+                        <option value="">All Status</option>
+                        <option value="treated" {{ request('status') == 'treated' ? 'selected' : '' }}>Treated</option>
+                        <option value="referred" {{ request('status') == 'referred' ? 'selected' : '' }}>Referred</option>
+                        <option value="sent_home" {{ request('status') == 'sent_home' ? 'selected' : '' }}>Sent Home</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 col-lg-2">
+                    <input type="date" name="from" class="form-control" value="{{ request('from') }}">
+                </div>
+
+                <div class="col-md-2 col-lg-2">
+                    <input type="date" name="to" class="form-control" value="{{ request('to') }}">
+                </div>
+
+                <div class="col-md-2 col-lg-1">
+                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                </div>
+            </form>            
+            <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="table-light">
                     <tr>
@@ -113,7 +142,8 @@
                     @endforelse
                 </tbody>
             </table>
-            
+            {{ $visits->links('pagination::bootstrap-5') }}
+
         </div>
     </div>
 </div>

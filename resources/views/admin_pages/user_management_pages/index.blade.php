@@ -5,17 +5,17 @@
 @section('page-title', 'User Index')
 
 @section('content')
-<div class="card shadow-sm mb-4">
-    <div class="card-body">
-<!-- <div class="container"> -->
-    <!-- <h1 class="mb-4">Manage your Users</h1> -->
-
-    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">Add User</a>
-
-    @if(session('success'))
+   @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">Add User</a>
+
+ 
     <form action="{{ route('admin.users.index') }}" method="GET" class="row mb-4">
         <div class="col-md-8">
             <input type="text" name="search" class="form-control" placeholder="Search name or email..."

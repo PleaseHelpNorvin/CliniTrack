@@ -1,10 +1,9 @@
-@extends('layouts.admin_layout')
+@extends('layouts.nurse_layout')
 
-@section('title', 'Add Student')
-@section('page-title', 'Add Student')
+@section('title', 'Add')
+@section('page-title', 'Add')
 
 @section('content')
-
 <div class="card shadow-sm mb-4">
     <div class="card-body">
 
@@ -225,7 +224,7 @@
 
             {{-- Buttons --}}
             <div class="text-end">
-                <a href="{{ route('admin.students.index') }}" class="btn btn-secondary me-2">Cancel</a>
+                <a href="{{ route('nurse.students.index') }}" class="btn btn-secondary me-2">Cancel</a>
                 <button type="submit" class="btn btn-success">Add Student</button>
             </div>
 
@@ -260,5 +259,4 @@
     gradeSelect.addEventListener('change', toggleOtherInput);
     toggleOtherInput();
 </script>
-
 @endsection

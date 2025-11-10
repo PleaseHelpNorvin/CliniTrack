@@ -4,9 +4,6 @@
 @section('page-title', 'Edit Visit Details')
 
 @section('content')
-<div class="mb-3">
-    <a href="{{ route('nurse.visits.index') }}" class="btn btn-secondary">&larr; Back to Visits</a>
-</div>
 
 <div class="card shadow-sm w-100">
     <div class="card-body">
@@ -14,7 +11,7 @@
             @csrf
             @method('PUT') {{-- Important for PUT method --}}
 
-            {{-- 🔍 Student Dropdown --}}
+            {{-- Student Dropdown --}}
             <div class="col-md-6">
                 <label class="form-label">Select Student</label>
                 <select name="student_id" class="form-select @error('student_id') is-invalid @enderror">
@@ -157,6 +154,8 @@
 
             {{-- Submit --}}
             <div class="col-md-12 text-end">
+                <a href="{{ route('nurse.visits.index') }}" class="btn btn-secondary">Cancel</a>
+
                 <button type="submit" class="btn btn-primary">Update Visit</button>
             </div>
 

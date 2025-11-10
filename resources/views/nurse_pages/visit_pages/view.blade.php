@@ -4,15 +4,7 @@
 @section('page-title', 'Visit Details')
 
 @section('content')
-
-<div class="mb-3">
-    <a href="{{ route('nurse.visits.index') }}" class="btn btn-secondary">
-        &larr; Back to Visits
-    </a>
-</div>
-
-
-<div class="card shadow-sm">
+<div class="card mb-4">
     <div class="card-body">
 
         {{-- Student & Nurse Info --}}
@@ -110,8 +102,12 @@
                 <p>{{ $visit->nurse_notes ?? '-' }}</p>
             </div>
         </div>
+        <div class="d-flex justify-content-end mt-3">
+            <a href="{{ route('nurse.visits.index') }}" class="btn btn-secondary">Back</a>
+        </div>
 
     </div>
+    
 </div>
 
 @endsection

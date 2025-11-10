@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Student;
+use App\Services\ActivityLogService;
+use App\Constants\ActivityActions;
 
 class StudentController extends Controller
 {
@@ -17,6 +19,7 @@ class StudentController extends Controller
             $query->where(function($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
                 ->orWhere('last_name', 'like', "%{$search}%")
+                ->orWhere('student_number', 'like', "%{$search}%")
                 ->orWhere('email', 'like', "%{$search}%")
                 ->orWhere('grade_level_other', 'like', "%{$search}%");
 
@@ -104,6 +107,8 @@ class StudentController extends Controller
             }
         }
 
+        ActivityLogService::log(ActivityActions::ADD_STUDENT, ['student' => $student->first_name . ' ' . $student->last_name]);
+
         return redirect()->route('admin.students.view', $student)->with('success', 'Student added successfully');
     }
 
@@ -147,6 +152,8 @@ class StudentController extends Controller
 
         $student->update($validated);
 
+        ActivityLogService::log(ActivityActions::UPDATE_STUDENT, ['student' => $student->first_name . ' ' . $student->last_name]);
+
         return redirect()
             ->route('admin.students.view', $student->id)
             ->with('success', 'Student updated successfully!');
@@ -165,6 +172,8 @@ class StudentController extends Controller
         }
 
         $student->delete();
+
+        ActivityLogService::log(ActivityActions::DELETE_STUDENT, ['student' => $student->first_name . ' ' . $student->last_name]);
 
         return redirect()
             ->route('admin.students.index')

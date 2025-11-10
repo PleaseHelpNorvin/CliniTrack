@@ -1,4 +1,4 @@
-@extends('layouts.admin_layout')
+@extends('layouts.nurse_layout')
 
 @section('title', 'Edit Student')
 @section('page-title', 'Edit Student')
@@ -8,7 +8,7 @@
 <div class="card shadow-sm mb-4">
     <div class="card-body">
 
-        <form action="{{ route('admin.students.update', $student->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('nurse.students.update', $student->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- Profile Image --}}
@@ -121,7 +121,7 @@
 
             {{-- Buttons --}}
             <div class="text-end">
-                <a href="{{ route('admin.students.view', $student->id ) }}" class="btn btn-secondary me-2">
+                <a href="{{ route('nurse.students.view', $student->id ) }}" class="btn btn-secondary me-2">
                     Cancel
                 </a>
                 <button type="submit" class="btn btn-success">Update Student</button>

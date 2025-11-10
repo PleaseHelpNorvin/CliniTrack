@@ -8,7 +8,7 @@
 
     <h3>Upload Document for {{ $student->first_name }} {{ $student->last_name }} (Student #{{ $student->student_number }})</h3>
 
-    <form action="{{ route('admin.documents.store') }}" method="POST" enctype="multipart/form-data" class="mt-3">
+    <form action="{{ $storeRoute }}" method="POST" enctype="multipart/form-data" class="mt-3">
         @csrf
 
         <input type="hidden" name="student_id" value="{{ $student->id }}">

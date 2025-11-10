@@ -4,9 +4,6 @@
 @section('page-title', 'Add New Visit')
 
 @section('content')
-<div class="mb-3">
-    <a href="{{ route('nurse.visits.index') }}" class="btn btn-secondary">&larr; Back to Visits</a>
-</div>
 
 <div class="card shadow-sm w-100">
     <div class="card-body">
@@ -147,7 +144,8 @@
 
             {{-- Submit --}}
             <div class="col-md-12 text-end">
-                <button type="submit" class="btn btn-primary">Save Visit</button>
+                <a href="{{ route('nurse.visits.index') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>

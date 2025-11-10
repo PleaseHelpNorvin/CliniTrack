@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Visit;
 use App\Models\Student;
-
+use App\Services\ActivityLogService;
+use App\Constants\ActivityActions;
 
 class VisitController extends Controller
 {
@@ -37,6 +38,7 @@ class VisitController extends Controller
     }
 
     public function view(Visit $visit) {
+        ActivityLogService::log(ActivityActions::VIEW_VISIT, ['student' => $visit->student->first_name . ' ' . $visit->student->last_name]);
         return view('nurse_pages.visit_pages.view', compact('visit'));
     }
 
@@ -63,7 +65,7 @@ class VisitController extends Controller
             'emergency'      => 'sometimes|boolean',
         ]);
 
-        Visit::create([
+        $visit = Visit::create([
             'student_id'     => $request->student_id,
             'nurse_id'       => Auth::id(),
             'visited_at'     => $request->visited_at,
@@ -78,6 +80,8 @@ class VisitController extends Controller
             'referred_to'    => $request->status === 'referred' ? $request->referred_to : null,
             'emergency'      => $request->has('emergency'),
         ]);
+        
+        ActivityLogService::log(ActivityActions::ADD_VISIT, ['student' => $visit->student->first_name . ' ' . $visit->student->last_name]);
 
         return redirect()->route('nurse.visits.index')
                         ->with('success', 'Visit added successfully!');
@@ -87,7 +91,6 @@ class VisitController extends Controller
         $students = Student::orderBy('first_name')->get();
         return view('nurse_pages.visit_pages.edit', compact('visit', 'students'));
     }
-
 
     public function update(Request $request, Visit $visit) {
         $validated = $request->validate([
@@ -120,12 +123,17 @@ class VisitController extends Controller
             'emergency'      => $request->has('emergency'),
         ]);
 
+        ActivityLogService::log(ActivityActions::ADD_VISIT, ['student' => $visit->student->first_name . ' ' . $visit->student->last_name]);
+
         return redirect()->route('nurse.visits.index')->with('success', 'Visit updated successfully!');
     }
 
 
     public function destroy(Visit $visit) {
         $visit->delete();
+
+        ActivityLogService::log(ActivityActions::ADD_VISIT, ['student' => $visit->student->first_name . ' ' . $visit->student->last_name]);
+
         return redirect()->route('nurse.visits.index')->with('success', 'Visit deleted successfully!');
     }
 }

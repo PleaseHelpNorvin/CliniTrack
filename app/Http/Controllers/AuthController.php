@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use App\Services\ActivityLogService;
+use App\Constants\ActivityActions; 
 
 
 class AuthController extends Controller
@@ -31,6 +32,7 @@ class AuthController extends Controller
         }
 
         Auth::login($user);
+        ActivityLogService::log(ActivityActions::LOGIN);
 
         return match ($user->role) {
             'admin' => redirect()->route('admin.dashboard'),
@@ -48,6 +50,9 @@ class AuthController extends Controller
         //     <button type="submit" class="btn btn-danger">Logout</button>
         // </form>        
         // Logout user
+
+        ActivityLogService::log(ActivityActions::LOGOUT);
+
         Auth::logout();
 
         // Invalidate session
