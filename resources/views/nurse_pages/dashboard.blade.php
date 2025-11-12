@@ -6,8 +6,8 @@
 @section('content')
 <div class="container-fluid">
 
+    <!-- ==================== Quick Action Buttons ==================== -->
     <div class="row mb-4">
-        <!-- Quick Action Buttons -->
         <div class="col-12">
             <div class="d-flex flex-wrap justify-content-center gap-2">
                 <a href="#" class="btn btn-primary btn-lg"><i class="bi bi-plus-circle me-1"></i> New Visit</a>
@@ -20,9 +20,9 @@
     </div>
 
     <!-- ==================== Top KPI Cards ==================== -->
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card text-white bg-success mb-3 shadow-sm">
+    <div class="row  d-flex">
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-success shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h5>Patients Today</h5>
@@ -32,8 +32,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-primary mb-3 shadow-sm">
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-primary shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h5>Pending Cases</h5>
@@ -43,8 +43,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-dark bg-warning mb-3 shadow-sm">
+        <div class="col-md-3 mb-3">
+            <div class="card text-dark bg-warning shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h5>Follow-ups</h5>
@@ -54,8 +54,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-danger mb-3 shadow-sm">
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-danger shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h5>New Referrals</h5>
@@ -66,9 +66,9 @@
             </div>
         </div>
     </div>
-    <!-- ==================== Quick Actions + Alerts ==================== -->
-    <div class="row">
-        <!-- Urgent Alerts Table -->
+
+    <!-- ==================== Urgent Alerts + Frequent Visitors ==================== -->
+    <div class="row d-flex">
         <div class="col-md-6 mb-3">
             <div class="card bg-light shadow-sm h-100">
                 <div class="card-body">
@@ -101,47 +101,43 @@
             </div>
         </div>
 
-    <!-- Frequent Visitors Table -->
-    <div class="col-md-6 mb-3">
-        <div class="card bg-light shadow-sm h-100">
-            <div class="card-body">
-                <h6>Frequent Visitors</h6>
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Student</th>
-                                <th>Visits</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Juan Dela Cruz</td>
-                                <td><span class="badge bg-primary">3 Visits</span></td>
-                            </tr>
-                            <tr>
-                                <td>Anna Santos</td>
-                                <td><span class="badge bg-primary">2 Visits</span></td>
-                            </tr>
-                            <tr>
-                                <td>Mark Reyes</td>
-                                <td><span class="badge bg-primary">2 Visits</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="col-md-6 mb-3">
+            <div class="card bg-light shadow-sm h-100">
+                <div class="card-body">
+                    <h6>Frequent Visitors</h6>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Visits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Juan Dela Cruz</td>
+                                    <td><span class="badge bg-primary">3 Visits</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Anna Santos</td>
+                                    <td><span class="badge bg-primary">2 Visits</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mark Reyes</td>
+                                    <td><span class="badge bg-primary">2 Visits</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-
-    <!-- ==================== Bottom Row: Table + Charts ==================== -->
-    <div class="row mb-4">
-        <!-- Left Column: Recent Visits + Public Forms -->
-        <div class="col-lg-6">
-            <!-- Recent Visits Table -->
-            <div class="card shadow-sm mb-4">
+    <!-- ==================== Recent Visits + Public Forms side by side ==================== -->
+    <div class="row d-flex">
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow-sm h-100">
                 <div class="card-header bg-white fw-bold">Recent Visits</div>
                 <div class="card-body table-responsive">
                     <table class="table table-hover align-middle">
@@ -182,9 +178,10 @@
                     </table>
                 </div>
             </div>
+        </div>
 
-            <!-- Public Forms Table -->
-            <div class="card shadow-sm mb-4">
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow-sm h-100">
                 <div class="card-header bg-white fw-bold">Public Forms / Quick Links</div>
                 <div class="card-body table-responsive">
                     <table class="table table-hover align-middle">
@@ -224,19 +221,24 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Right Column: Charts -->
-        <div class="col-lg-6">
-            <div class="card shadow-sm mb-3">
+    <!-- ==================== Visits This Week + Top Symptoms Today side by side ==================== -->
+    <div class="row mb-4 d-flex">
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow-sm h-100">
                 <div class="card-header bg-white fw-bold">Visits This Week</div>
                 <div class="card-body">
-                    <canvas class="" id="dashboardVisitsChart" ></canvas>
+                    <canvas id="dashboardVisitsChart"></canvas>
                 </div>
             </div>
-            <div class="card shadow-sm">
+        </div>
+
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow-sm h-100">
                 <div class="card-header bg-white fw-bold">Top Symptoms Today</div>
                 <div class="card-body">
-                    <canvas class="chart-small" id="dashboardSymptomsChart" ></canvas>
+                    <canvas class="chart-small" id="dashboardSymptomsChart"></canvas>
                 </div>
             </div>
         </div>

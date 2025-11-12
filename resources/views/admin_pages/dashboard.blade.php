@@ -6,7 +6,7 @@
 @section('content')
 <!-- <div class="container-fluid px-3 px-md-4 py-3"> -->
 
-    <!-- ==================== 1️⃣ SYSTEM USAGE ==================== -->
+    <!-- ==================== SYSTEM USAGE ==================== -->
     <div class="row g-3 mb-4">
 
         @foreach ($cards as $card)
@@ -21,7 +21,7 @@
         @endforeach
     </div>
 
-    <!-- ==================== 2️⃣ CLINIC TRENDS (Charts) ==================== -->
+    <!-- ==================== CLINIC TRENDS (Charts) ==================== -->
     <div class="row g-3 mb-4">
         <div class="col-12 col-lg-8">
             <div class="card shadow-sm h-100">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-
+  
         <div class="col-12 col-lg-4">
             <div class="d-flex flex-column gap-3">
                 <div class="card shadow-sm">
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <!-- ==================== 3️⃣ STAFF ACTIVITY & 4️⃣ HEALTH PATTERNS ==================== -->
+    <!-- ====================  STAFF ACTIVITY &  HEALTH PATTERNS ==================== -->
     <div class="row g-3">
         <div class="col-12 col-lg-6"> 
             <div class="card shadow-sm h-100">
