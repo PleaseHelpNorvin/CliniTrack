@@ -145,38 +145,42 @@
     console.log('Dashboard charts initializing...');
 
     // ==================== Visits Per Month Chart ====================
-    const visitsPerMonthElement = document.getElementById('dashboardvisitsPerMonthChart');
-    if (visitsPerMonthElement) {
-        const ctx = visitsPerMonthElement.getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                datasets: [{
-                    label: 'Visits',
-                    data: [45, 60, 80, 90, 110, 120, 100 ],
-                    backgroundColor: 'rgba(13, 110, 253, 0.7)',
-                    borderRadius: 5
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: { legend: { display: false } },
-                scales: { y: { beginAtZero: true } }
-            }
-        });
-    }
+        const visitsPerMonthEl = document.getElementById('dashboardvisitsPerMonthChart');
+        if (visitsPerMonthEl) {
+            const ctx = visitsPerMonthEl.getContext('2d');
+            const data = JSON.parse(visitsPerMonthEl.dataset.values || '[]');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+                    datasets: [{
+                        label: 'Visits',
+                        data: data,
+                        backgroundColor: 'rgba(13, 110, 253, 0.7)',
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
 
     // ==================== Visit Reasons Chart ====================
-    const visitReasonsElement = document.getElementById('visitReasonsChart');
-    if (visitReasonsElement) {
-        const ctx = visitReasonsElement.getContext('2d');
+    const visitReasonsEl = document.getElementById('visitReasonsChart');
+    if (visitReasonsEl) {
+        const labels = JSON.parse(visitReasonsEl.dataset.labels || '[]');
+        const data = JSON.parse(visitReasonsEl.dataset.values || '[]');
+        const ctx = visitReasonsEl.getContext('2d');
         new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['Headache', 'Stomachache', 'Injury', 'Fever', 'Others'],
+                labels: labels,
                 datasets: [{
-                    data: [32, 18, 10, 25, 15],
+                    data: data,
                     backgroundColor: ['#0d6efd', '#198754', '#dc3545', '#ffc107', '#6c757d']
                 }]
             },
@@ -187,24 +191,28 @@
         });
     }
 
+
+
     // ==================== Emergency vs Non-Emergency Chart ====================
-    const emergencyChartElement = document.getElementById('emergencyChart');
-    if (emergencyChartElement) {
-        const ctx = emergencyChartElement.getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Emergency', 'Non-Emergency'],
-                datasets: [{
-                    data: [3, 520],
-                    backgroundColor: ['#dc3545', '#198754']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: { legend: { position: 'bottom' } }
-            }
-        });
-    }
+        const emergencyEl = document.getElementById('emergencyChart');
+        if (emergencyEl) {
+            const labels = JSON.parse(emergencyEl.dataset.labels || '[]');
+            const data = JSON.parse(emergencyEl.dataset.values || '[]');
+            const ctx = emergencyEl.getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: ['#dc3545', '#198754']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
 
 // });
