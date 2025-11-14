@@ -25,7 +25,16 @@
             <div class="card text-white bg-success shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h5>Patients Today</h5>
+                        <h5 >Patients Today
+
+                                        <i class="bi bi-info-circle ms-1" 
+                                            tabindex="0"
+                                            data-bs-toggle="popover"
+                                            data-bs-trigger="focus"
+                                            title="Patients Today"
+                                            data-bs-content="This card shows the total number of patients who visited today.">
+                                        </i>
+                        </h5>
                         <h3>
                             {{ $patientsToday }}
                             @if($patientsDifference > 0)
@@ -45,7 +54,16 @@
             <div class="card text-white bg-primary shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h5>Pending Cases</h5>
+                        <h5>
+                            Pending Cases
+                            <i class="bi bi-info-circle ms-1" 
+                                tabindex="0"
+                                data-bs-toggle="popover"
+                                data-bs-trigger="focus"
+                                title="Pending Cases"
+                                data-bs-content="This card shows the total number of cases that are still pending today.">
+                            </i>
+                        </h5>
                         <h3>{{$pendingCases}}</h3>
                     </div>
                     <i class="bi bi-exclamation-triangle" style="font-size:2.5rem;"></i>
@@ -56,7 +74,16 @@
             <div class="card text-dark bg-warning shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h5>Follow-ups</h5>
+                        <h5>
+                            Follow-ups
+                            <i class="bi bi-info-circle ms-1" 
+                                tabindex="0"
+                                data-bs-toggle="popover"
+                                data-bs-trigger="focus"
+                                title="Follow-ups"
+                                data-bs-content="This card shows the number of patients who need follow-up visits.">
+                            </i>
+                        </h5>
                         <h3>{{$followUps}}</h3>
                     </div>
                     <i class="bi bi-calendar-check" style="font-size:2.5rem;"></i>
@@ -67,7 +94,16 @@
             <div class="card text-white bg-danger shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h5>New Referrals</h5>
+                        <h5>
+                            New Referrals
+                            <i class="bi bi-info-circle ms-1" 
+                                tabindex="0"
+                                data-bs-toggle="popover"
+                                data-bs-trigger="focus"
+                                title="New Referrals"
+                                data-bs-content="This card shows the number of patients referred to other clinics today.">
+                            </i>
+                        </h5>
                         <h3>{{$newReferrals}}</h3>
                     </div>
                     <i class="bi bi-hospital" style="font-size:2.5rem;"></i>
@@ -81,7 +117,16 @@
         <div class="col-md-6 mb-3">
             <div class="card bg-light shadow-sm h-100">
                 <div class="card-body">
-                    <h6>Urgent Alerts</h6>
+                    <h6 class="d-flex align-items-center justify-content-between ">
+                        Urgent Alerts
+                        <i class="bi bi-info-circle ms-1"
+                            tabindex="0"
+                            data-bs-toggle="popover"
+                            data-bs-trigger="focus"
+                            title="Urgent Alerts"
+                            data-bs-content="This table shows students with urgent alerts that require immediate attention.">
+                        </i>
+                    </h6>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
                             <thead class="table-light">
@@ -111,7 +156,16 @@
         <div class="col-md-6 mb-3">
             <div class="card bg-light shadow-sm h-100">
                 <div class="card-body">
-                    <h6>Frequent Visitors</h6>
+                    <h6 class="d-flex align-items-center justify-content-between">
+                        Frequent Visitors
+                        <i class="bi bi-info-circle ms-1"
+                            tabindex="0"
+                            data-bs-toggle="popover"
+                            data-bs-trigger="focus"
+                            title="Frequent Visitors"
+                            data-bs-content="This table shows students who visit most often.">
+                        </i>
+                    </h6>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
                             <thead class="table-light">
@@ -139,7 +193,16 @@
     <div class="row">
         <div class="col-lg-6 mb-3">
             <div class="card shadow-sm h-100">
-                <div class="card-header bg-white fw-bold">Recent Visits</div>
+                <div class="card-header bg-white fw-bold d-flex align-items-center justify-content-between">Recent Visits
+                    <i class="bi bi-info-circle ms-1"
+                        tabindex="0"
+                        data-bs-toggle="popover"
+                        data-bs-trigger="focus"
+                        title="Recent Visits"
+                        data-bs-content="This table shows the latest visits by students including status and reason.">
+                    </i>
+
+                </div>
                 <div class="card-body table-responsive">
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
@@ -176,7 +239,13 @@
             <div class="card shadow-sm h-100">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center fw-bold">
                     <span>Public Forms / Quick Links</span>
-                    <!-- <a href="" class="btn btn-primary btn-sm">+ Add Form</a> -->
+                    <i class="bi bi-info-circle ms-2"
+                        tabindex="0"
+                        data-bs-toggle="popover"
+                        data-bs-trigger="focus"
+                        title="Public Forms / Quick Links"
+                        data-bs-content="This table lists all available public forms and quick links.">
+                    </i>
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table table-hover align-middle">
@@ -213,8 +282,8 @@
                     </table>
 
                     <!-- Laravel + Bootstrap Pagination -->
-                    <div class="d-flex justify-content-center mt-3">
-                        <!-- {{ $forms->links('pagination::bootstrap-5') }} -->
+                    <div class="mt-3">
+                        {{ $forms->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div>
@@ -225,7 +294,16 @@
     <div class="row mb-4 d-flex">
         <div class="col-lg-6 mb-3">
             <div class="card shadow-sm h-100">
-                <div class="card-header bg-white fw-bold">Visits This Week (done)</div>
+                <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center fw-bold">Visits This Week
+                    <i class="bi bi-info-circle ms-1"
+                        tabindex="0"
+                        data-bs-toggle="popover"
+                        data-bs-trigger="focus"
+                        title="Visits This Week"
+                        data-bs-content="This chart shows the number of visits each day for the current week.">
+                    </i>
+
+                </div>
                 <div class="card-body">
                     <canvas 
                         id="dashboardVisitsChart"
@@ -237,7 +315,15 @@
 
         <div class="col-lg-6 mb-3">
             <div class="card shadow-sm h-100">
-                <div class="card-header bg-white fw-bold">Top Symptoms Today</div>
+                <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center fw-bold">Top Symptoms Today
+                    <i class="bi bi-info-circle ms-1"
+                        tabindex="0"
+                        data-bs-toggle="popover"
+                        data-bs-trigger="focus"
+                        title="Top Symptoms Today"
+                        data-bs-content="This chart shows the most common symptoms reported by patients today.">
+                    </i>
+                </div>
                 <div class="card-body">
                     <canvas 
                         id="dashboardSymptomsChart" 

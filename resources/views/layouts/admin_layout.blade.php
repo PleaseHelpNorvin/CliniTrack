@@ -6,6 +6,7 @@
   <title>@yield('title', 'School Clinic System')</title>
 
   <link rel="stylesheet" href="{{ asset('Bootstrap5/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('bootstrap-icons/font/bootstrap-icons.css') }}">
 
   <style>
     .list-group-item.active {
@@ -196,6 +197,7 @@
   <script src="{{ asset('Chartjs/Chartjs4.5.1/chart.umd.min.js') }}"></script>
   <script src="{{ asset('App/js/chart.js') }}"></script>
   <script src="{{ asset('App/js/copyclipboard.js')}}"></script>
+  <script src="{{ asset('App/js/popover.js') }}"></script>
 
   <script>
     const menuToggle = document.getElementById('menu-toggle');

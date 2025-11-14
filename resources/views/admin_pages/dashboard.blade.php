@@ -190,7 +190,7 @@
                     </table>
 
                     <!-- Pagination -->
-                    <div class="d-flex justify-content-center mt-3">
+                    <div class="mt-3">
                         {{ $forms->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
