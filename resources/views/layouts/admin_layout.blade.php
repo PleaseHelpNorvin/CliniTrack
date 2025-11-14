@@ -199,6 +199,7 @@
   <script src="{{ asset('App/js/copyclipboard.js')}}"></script>
   <script src="{{ asset('App/js/popover.js') }}"></script>
 
+
   <script>
     const menuToggle = document.getElementById('menu-toggle');
     const wrapper = document.getElementById('wrapper');

@@ -136,7 +136,7 @@ class VisitController extends Controller
     public function destroy(Visit $visit) {
         $visit->delete();
 
-        ActivityLogService::log(ActivityActions::ADD_VISIT, ['student' => $visit->student->first_name . ' ' . $visit->student->last_name]);
+        ActivityLogService::log(ActivityActions::DELETE_VISIT, ['student' => $visit->student->first_name . ' ' . $visit->student->last_name]);
 
         return redirect()->route('nurse.visits.index')->with('success', 'Visit deleted successfully!');
     }

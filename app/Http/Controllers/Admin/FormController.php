@@ -31,8 +31,24 @@ class FormController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Form added successfully!');
     }
 
-    public function edit(Form $form) {
-        return  view ('admin_pages.forms_pages.edit');
+    public function edit(Form $form)
+    {
+        return view('admin_pages.forms_pages.edit', compact('form'));
+    }
+    
+    public function update(Request $request, Form $form)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'type' => 'required|string|max:50',
+            'link' => 'required|url',
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        $form->update($request->all());
+
+        return redirect()->route('admin.dashboard')->with('success', 'Form updated successfully!');
     }
 
     public function destroy(Form $form)

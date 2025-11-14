@@ -10,21 +10,30 @@ use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\FormController;
-
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Nurse\DashboardController as NurseDashboard;
 use App\Http\Controllers\Nurse\StudentController as NurseStudent;
 use App\Http\Controllers\Nurse\ReportController as NurseReports;
 use App\Http\Controllers\Nurse\VisitController;
+use App\Http\Controllers\Public\PublicFormController;
 
 use App\Http\Controllers\Staff\DashboardController as StaffDashboard;
 use App\Models\Form;
 
-Route::get('/', fn() => view('welcome'));
-
+// Route::get('/', fn() => view('welcome'));
+// Landing Page Routes
+Route::get('/', [LandingPageController::class,'index'])->name('landing');
 // Login routes
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+Route::prefix('public')->group(function() {
+    Route::get('/student-profile/create', [PublicFormController::class, 'createStudentProfile'])->name('public.students.create');
+    Route::post('/student-profile/store', [PublicFormController::class, 'StoreStudentProfile'])->name('public.students.store');
+    Route::get('/visit/create', [PublicFormController::class, 'createVisit'])->name('public.visit.create');
+    Route::post('/visit/store', [PublicFormController::class, 'storeVisit'])->name('public.visit.store');
+});
 
 // Admin routes
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
@@ -70,8 +79,12 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/', [ActivityLogController::class, 'index'])->name('admin.logs.index');
     }); 
     Route::prefix('settings')->group(function (){
-        Route::get('/', [SettingController::class, 'index'])->name('admin.settings.index');
-    }); 
+    Route::get('/confirm-password', [SettingController::class, 'confirmPasswordForm'])->name('admin.settings.confirm-password');
+    Route::post('/check-password', [SettingController::class, 'checkPassword'])->name('admin.settings.check-password');
+    Route::get('/', [SettingController::class, 'index'])
+        ->middleware('password.confirm') // optional, Laravel built-in
+        ->name('admin.settings.index');
+    });
 });
 
 // Nurse routes
@@ -109,7 +122,3 @@ Route::prefix('nurse')->middleware(['auth', 'role:nurse'])->group(function () {
     }); 
 });
 
-// Staff routes
-Route::prefix('staff')->middleware(['auth', 'role:staff'])->group(function () {
-    Route::get('/dashboard', [StaffDashboard::class, 'index'])->name('staff.dashboard');
-});

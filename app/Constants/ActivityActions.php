@@ -14,7 +14,8 @@ class ActivityActions
     const UPDATE_STUDENT = 'update_student';
     const DELETE_STUDENT = 'delete_student';
     const UPLOAD_DOCUMENT = 'upload_document';
-    const FILL_PUBLIC_FORM = 'fill_public_form';
+    const FILL_PUBLIC_STUDENT_FORM = 'fill_public_student_form';
+    const FILL_PUBLIC_VISIT_FORM = 'fill_public_visit_form';
 
     public static $descriptions = [
         self::LOGIN => 'User logged in',
@@ -27,6 +28,7 @@ class ActivityActions
         self::UPDATE_STUDENT => 'Updated student :student',
         self::DELETE_STUDENT => 'Delete student :student',
         self::UPLOAD_DOCUMENT => 'Uploaded document ":document" for :student',
-        self::FILL_PUBLIC_FORM => 'Submitted public form for :student',
+        self::FILL_PUBLIC_STUDENT_FORM => 'Submitted public form for :student',
+        self::FILL_PUBLIC_VISIT_FORM => 'submitted public visit form for :student',
     ];
 }

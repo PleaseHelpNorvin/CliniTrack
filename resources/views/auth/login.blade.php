@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="{{ asset('Bootstrap5/css/bootstrap.min.css') }}">
 </head>
 <body class="bg-light">
-
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <a href="{{ route('landing') }}" class="btn btn-primary btn-sm rounded-circle px-2 position-absolute" style="top: 20px; left: 20px;">
+        ←
+    </a>
+
     <div class="card shadow-sm" style="width: 400px;">
         <div class="card-body">
             <h3 class="card-title text-center mb-4">CliniTrack Login</h3>
