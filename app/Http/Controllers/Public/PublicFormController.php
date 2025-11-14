@@ -88,7 +88,7 @@ class PublicFormController extends Controller
 
         $visit = Visit::create([
             'student_id'     => $request->student_id,
-            'nurse_id'       => Auth::id(),
+            'nurse_id'       => null,
             'visited_at'     => $request->visited_at,
             'reason'         => $request->reason, // always enum value
             'other_reason'   => $request->reason === 'other' ? $request->other_reason : null,
@@ -103,6 +103,6 @@ class PublicFormController extends Controller
         ]);
         
         ActivityLogService::log(ActivityActions::FILL_PUBLIC_VISIT_FORM, ['student' => $visit->student->first_name . ' ' . $visit->student->last_name]);
-        return redirect()->route('')->with('success', 'Visit updated successfully!');
+        return redirect()->route('public.visit.create')->with('success', 'Visit updated successfully!');
     }
 }
