@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ReportController as AdminReports;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\DocumentController;
+use App\Http\Controllers\Admin\FormController;
 
 use App\Http\Controllers\Nurse\DashboardController as NurseDashboard;
 use App\Http\Controllers\Nurse\StudentController as NurseStudent;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Nurse\ReportController as NurseReports;
 use App\Http\Controllers\Nurse\VisitController;
 
 use App\Http\Controllers\Staff\DashboardController as StaffDashboard;
+use App\Models\Form;
 
 Route::get('/', fn() => view('welcome'));
 
@@ -51,7 +53,14 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/store', [DocumentController::class, 'store'])->name('admin.documents.store');
         Route::delete('/destroy/{document}', [DocumentController::class, 'destroy'])->name('admin.documents.destroy');
     });
-    
+
+    Route::prefix('forms')->group(function (){
+        Route::get('/create', [FormController::class,'create'])->name('admin.forms.create');
+        Route::post('/store', [FormController::class,'store'])->name('admin.forms.store');
+        Route::get('/edit/{form}', [FormController::class, 'edit'])->name('admin.forms.edit');
+        Route::post('/update/{form}', [FormController::class, 'update'])->name('admin.forms.update');
+        Route::delete('/destroy/{form}', [FormController::class,'destroy'])->name('admin.forms.destroy');
+    });
     Route::prefix('reports')->group(function (){
         Route::get('/', [AdminReports::class, 'index'])->name('admin.reports.index');
         Route::get('/export/{format}', [AdminReports::class, 'export'])->name('admin.reports.export');

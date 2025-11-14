@@ -94,17 +94,20 @@
             options: { responsive: true, plugins:{legend:{display:false}} }
         });
     }
-
     const dashboardVisitChart = document.getElementById('dashboardVisitsChart');
-    if(dashboardVisitChart){
+
+    if (dashboardVisitChart) {
+        const orderedWeek = JSON.parse(dashboardVisitChart.dataset.week || '{}'); // <-- parse the data
+
         const dbVisitCtx = dashboardVisitChart.getContext('2d');
+
         new Chart(dbVisitCtx, {
             type: 'bar',
             data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                labels: Object.keys(orderedWeek).map(d => d.substring(0,3)),
                 datasets: [{
                     label: 'Visits',
-                    data: [5, 7, 4, 8, 6],
+                    data: Object.values(orderedWeek),
                     backgroundColor: 'rgba(13, 110, 253, 0.7)',
                     borderRadius: 5
                 }]
@@ -116,33 +119,61 @@
             }
         });
     }
-
     const dashboardSymptomsChart = document.getElementById('dashboardSymptomsChart');
-    if(dashboardSymptomsChart) {
+
+    if (dashboardSymptomsChart) {
         const ctx2 = dashboardSymptomsChart.getContext('2d');
-        new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: ['Fever', 'Injury', 'Headache', 'Checkup'],
-                datasets: [{
-                    data: [4, 2, 3, 1],
-                    backgroundColor: [
-                        'rgba(220,53,69,0.7)',
-                        'rgba(255,193,7,0.7)',
-                        'rgba(13,110,253,0.7)',
-                        'rgba(108,117,125,0.7)'
-                    ]
-                }]
-            },
-            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-        });
+
+        const labels = JSON.parse(dashboardSymptomsChart.dataset.labels || '[]');
+        const data = JSON.parse(dashboardSymptomsChart.dataset.values || '[]');
+
+        function generateColors(n) {
+            const colors = [];
+            for (let i = 0; i < n; i++) {
+                const hue = Math.floor((360 / n) * i); 
+                colors.push(`hsl(${hue}, 70%, 50%)`);
+            }
+            return colors;
+        }
+
+        if (data.length === 0) {
+            new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: ['No visits today yet'],
+                    datasets: [{
+                        data: [1],
+                        backgroundColor: ['rgba(108,117,125,0.3)']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        } else {
+            new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: generateColors(labels.length) 
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
     }
 
-
-
     // ==================== ADMIN DASHBOARD CHARTS ====================
-// document.addEventListener('DOMContentLoaded', function() {
-    console.log('Dashboard charts initializing...');
 
     // ==================== Visits Per Month Chart ====================
         const visitsPerMonthEl = document.getElementById('dashboardvisitsPerMonthChart');
@@ -152,6 +183,7 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
+
                     labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
                     datasets: [{
                         label: 'Visits',
@@ -159,9 +191,11 @@
                         backgroundColor: 'rgba(13, 110, 253, 0.7)',
                         borderRadius: 5
                     }]
+
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: { y: { beginAtZero: true } }
                 }

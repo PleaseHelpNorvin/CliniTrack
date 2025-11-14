@@ -6,6 +6,20 @@
 @section('content')
 <!-- <div class="container-fluid px-3 px-md-4 py-3"> -->
 
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <!-- ==================== SYSTEM USAGE ==================== -->
     <div class="row g-3 mb-4">
 
@@ -122,7 +136,67 @@
             </div>
         </div>
     </div>
+        
+    <div class="row g-3 mt-2">
+        <div class="col-12">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center fw-bold">
+                    <span>Manage Forms</span>
+                    <a href="{{ route('admin.forms.create') }}" class="btn btn-primary btn-sm">+ Add Form</a>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Form Name</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Link</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($forms as $form)
+                            <tr>
+                                <td>{{ $form->name }}</td>
+                                <td>{{ $form->description }}</td>
+                                <td>{{ $form->type }}</td>
+                                <td><a href="{{ $form->link }}" target="_blank">Open</a></td>
+                                <td>
+                                    <span class="badge bg-{{ $form->status == 'active' ? 'success' : 'secondary' }}">
+                                        {{ ucfirst($form->status) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('{{ $form->link }}')">Copy</button>
 
+
+                                    <a href="{{ route('admin.forms.edit', $form->id) }}" class="btn btn-sm btn-warning">Edit</a>
+
+                                    <form action="{{ route('admin.forms.destroy', $form->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6" class="text-center">No forms found</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $forms->links('pagination::bootstrap-5') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <!-- </div> -->
 
 <style>

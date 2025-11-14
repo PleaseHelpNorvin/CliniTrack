@@ -32,6 +32,10 @@ class VisitController extends Controller
             $query->where('reason', $request->reason);
         }
 
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
         $visits = $query->latest()->paginate(10)->withQueryString();
 
         return view('nurse_pages.visit_pages.index', compact('visits'));

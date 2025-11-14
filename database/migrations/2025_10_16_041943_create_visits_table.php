@@ -25,15 +25,11 @@ return new class extends Migration
             $table->string('temperature')->nullable();
             $table->string('blood_pressure')->nullable();
             $table->string('pulse_rate')->nullable();
-
             $table->text('treatment_given')->nullable();
             $table->text('nurse_notes')->nullable();
-
             $table->enum('status', ['treated','referred','sent_home'])->default('treated');
             $table->string('referred_to')->nullable();
-
             $table->boolean('emergency')->default(false);
-
             $table->timestamps();
         });
 

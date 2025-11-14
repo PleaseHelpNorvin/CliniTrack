@@ -29,7 +29,7 @@
             </a>
         </div>
 
-        {{-- 🔍 Filter Section --}}
+        {{-- Filter Section --}}
         <!-- <div class="d-flex gap-2 mb-3"> -->
             <form method="GET" action="{{ route('nurse.visits.index') }}" class="d-flex gap-2 mb-3">
                 <input type="text" name="search" class="form-control flex-grow-1" placeholder="Search by student..." value="{{ request('search') }}">
@@ -48,6 +48,13 @@
                     <option value="other" {{ request('reason') == 'other' ? 'selected' : '' }}>other</option>
                 </select>
 
+                <select name="status" class="form-select w-25">
+                    <option value="">All Statuses</option>
+                    <option value="treated" {{ request('status') == 'treated' ? 'selected' : '' }}>Treated</option>
+                    <option value="referred" {{ request('status') == 'referred' ? 'selected' : '' }}>Referred</option>
+                    <option value="sent_home" {{ request('status') == 'sent_home' ? 'selected' : '' }}>Sent Home</option>
+                </select>
+
                     <input type="text" name="other_reason" id="other_reason" 
                     class="form-control w-25 {{ request('reason') != 'other' ? 'd-none' : '' }}" 
                     placeholder="Enter other reason" value="{{ request('other_reason') }}">
@@ -56,7 +63,7 @@
             </form>
         <!-- </div> -->
 
-        {{-- 📋 Visits Table --}}
+        {{-- Visits Table --}}
      <div class="table-responsive mt-3 mt-md-0">
             <table class="table table-bordered table-hover">
                 <thead class="table-light">

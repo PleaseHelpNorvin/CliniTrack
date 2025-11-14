@@ -25,7 +25,7 @@
 
         <!-- Students Table -->
         <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped">
+            <table class="table table-bordered table-hover">
                 <thead class="table-light">
                     <tr>
                         <th>#</th>

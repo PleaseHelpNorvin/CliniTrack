@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Visit;
 use App\Models\ActivityLog;
 use Illuminate\Support\Facades\DB;
+use App\Models\Form;
 
 use Illuminate\Http\Request;
 
@@ -113,6 +114,8 @@ public function index()
         'when' => $log->created_at->diffForHumans(),
     ]);
 
+    $forms = Form::orderBy('created_at', 'desc')->paginate(5);
+
     return view('admin_pages.dashboard', compact(
         'cards',
         'healthPatterns',
@@ -120,7 +123,8 @@ public function index()
         'visitReasonsLabels',
         'visitReasonsValues',
         'emergencyData',
-        'staffActivity'
+        'staffActivity',
+        'forms'
     ));
 }
 

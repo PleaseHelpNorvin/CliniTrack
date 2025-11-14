@@ -195,6 +195,7 @@
   <script src="{{ asset('Bootstrap5/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('Chartjs/Chartjs4.5.1/chart.umd.min.js') }}"></script>
   <script src="{{ asset('App/js/chart.js') }}"></script>
+  <script src="{{ asset('App/js/copyclipboard.js')}}"></script>
 
   <script>
     const menuToggle = document.getElementById('menu-toggle');
