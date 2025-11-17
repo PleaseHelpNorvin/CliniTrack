@@ -24,9 +24,13 @@ class FormController extends Controller
             'type' => 'required|string|max:50',
             'link' => 'required|url',
             'status' => 'required|in:active,inactive',
-        ]);
+            'is_public' => 'nullable|boolean',
 
-        Form::create($request->all());
+        ]);
+        $data = $request->all();
+        $data['is_public'] = $request->has('is_public') ? 1 : 0; // ensures unchecked = 0
+
+    Form::create($data);
 
         return redirect()->route('admin.dashboard')->with('success', 'Form added successfully!');
     }

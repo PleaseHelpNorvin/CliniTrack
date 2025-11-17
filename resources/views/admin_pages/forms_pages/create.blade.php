@@ -52,6 +52,11 @@
                     </select>
                 </div>
 
+                <div class="mb-3 form-check">
+                    <input type="checkbox" name="is_public" id="is_public" class="form-check-input" value="1" {{ old('is_public') ? 'checked' : '' }}>
+                    <label for="is_public" class="form-check-label">Publicly Visible?</label>
+                </div>
+
                 <button type="submit" class="btn btn-success">Save Form</button>
                 <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Cancel</a>
             </form>
