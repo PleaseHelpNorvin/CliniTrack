@@ -23,6 +23,8 @@
                 <p><strong>Section:</strong> {{ $referral->visit->student->section }}</p>
                 <p><strong>Visited At:</strong> {{ $referral->visit->visited_at?->format('M d, Y h:i A') }}</p>
                 <p><strong>Reason:</strong> {{ ucfirst($referral->visit->reason) }}</p>
+                <p><strong>Allergies:</strong> {{ ucfirst($referral->visit->student->allergies) }}</p>
+
             </div>
         </div>
     </div>
@@ -51,8 +53,17 @@
             <!-- Details -->
             <div class="tab-pane fade show active" id="details" role="tabpanel">
                 <p><strong>Status:</strong> {{ ucfirst(str_replace('_',' ', $referral->status)) }}</p>
+                <p><strong>Referred By:</strong> {{ $referral->visit->nurse_name ?? '-' }}</p>
                 <p><strong>Referred To:</strong> {{ $referral->referred_to ?? '-' }}</p>
                 <p><strong>Notes:</strong> {{ $referral->notes ?? '-' }}</p>
+                <hr>
+                <h6>Initial Findings / Why Referred</h6>
+                <p><strong>Temperature:</strong> {{ $referral->visit->temperature ?? '-' }}</p>
+                <p><strong>Blood Pressure:</strong> {{ $referral->visit->blood_pressure.'mmHg' ?? '-'}}</p>
+                <p><strong>Pulse Rate:</strong> {{ $referral->visit->pulse_rate ?? '-'}}</p>
+                <p><strong>Treatment Given:</strong> {{ $referral->visit->treatment_given ?? '-'}}</p>
+                <p><strong>Reason:</strong> {{ $referral->visit->reason ?? '-' }}</p>
+                <p><strong>Other Notes:</strong> {{ $referral->visit->nurse_notes ?? '-' }}</p>
             </div>
 
             <!-- History -->

@@ -22,6 +22,7 @@ class Student extends Model
         'allergies',
         'medical_notes',
     ];
+    
     protected $casts = [
         'dob' => 'date',
     ];

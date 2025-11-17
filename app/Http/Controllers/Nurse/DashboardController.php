@@ -123,7 +123,7 @@ class DashboardController extends Controller
         $nurseId = Auth::id();
 
         $activeVisit = Visit::where('nurse_id', Auth::id())
-                        ->whereIn('status', ['assigned','in_progress'])
+                        ->whereIn('status', ['assigned'])
                         ->first();
 
         if ($activeVisit) {

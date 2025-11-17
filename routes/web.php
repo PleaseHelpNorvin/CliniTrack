@@ -34,6 +34,13 @@ Route::prefix('public')->group(function() {
     Route::post('/student-profile/store', [PublicFormController::class, 'StoreStudentProfile'])->name('public.students.store');
     Route::get('/visit/create', [PublicFormController::class, 'createVisit'])->name('public.visit.create');
     Route::post('/visit/store', [PublicFormController::class, 'storeVisit'])->name('public.visit.store');
+    Route::prefix('referral_histories')->group(function() {
+        Route::get('/', [PublicFormController::class, 'indexReferralHistory'])->name('public.referral_histories.index');
+        Route::get('/create/{referral}',[PublicFormController::class,'createReferralHistory'])->name('public.referral_histories.create');
+        Route::post('/store/{referral}/history',[PublicFormController::class,'storeReferralHistory'])->name('public.referral_histories.store');
+        Route::post('/store/{referral}/attachment', [PublicFormController::class,'storeReferralAttachment'])->name('public.referral_attachments.store');
+        
+    });
 });
 
 // Admin routes

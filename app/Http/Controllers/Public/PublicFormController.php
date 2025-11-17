@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student; 
 use App\Models\Visit; 
+use App\Models\Referral; 
+use App\Models\ReferralHistory; 
+use App\Models\ReferralAttachment; 
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Constants\ActivityActions;
@@ -95,4 +99,86 @@ class PublicFormController extends Controller
 
         return redirect()->route('public.visit.create')->with('success', 'Visit request submitted successfully!');
     }
+
+    public function indexReferralHistory(Request $request) {
+        $search = $request->query('search');
+
+        $referrals = Referral::query()
+            ->with('visit.student')
+            ->when($search, function($query, $search) {
+                $query->whereHas('visit.student', function($q) use ($search) {
+                    $q->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('student_number', 'like', "%{$search}%");
+                })
+                ->orWhereHas('visit', function($q) use ($search) {
+                    $q->where('reason', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10)
+            ->withQueryString(); // keeps search term in pagination links
+
+        return view('public_forms.referrals.index_referral_history', compact('referrals', 'search'));
+    }
+
+    public function createReferralHistory(Referral $referral) {
+        return view('public_forms.referrals.create_referral_history', compact('referral'));
+    }
+
+    public function storeReferralHistory(Request $request)
+    {
+        $request->validate([
+            'referral_id'    => 'required|exists:referrals,id',
+            'perform_by'     => 'required|string|max:255',
+            'bp'             => 'nullable|string|max:20',
+            'temp'           => 'nullable|string|max:10',
+            'pulse'          => 'nullable|string|max:10',
+            'resp_rate'      => 'nullable|string|max:10',
+            'o2_sat'         => 'nullable|string|max:10',
+            'treatment'      => 'nullable|string',
+            'medicine_given' => 'nullable|string',
+            'nurse_notes'    => 'nullable|string',
+            'update_type'    => 'required|string|in:checkup,medication,laboratory,follow_up,final',
+        ]);
+
+        
+
+        ReferralHistory::create($request->all());
+        
+        $referral = Referral::findOrFail($request->referral_id);
+        $referral->status = Referral::STATUS_IN_TREATMENT;
+        $referral->save();
+
+        return redirect()->route('public.referral_histories.index')->with('success', 'Referral history created!');
+    }
+
+
+    public function storeReferralAttachment(Request $request, $referralId)
+    {
+        // Validate (multiple files allowed)
+        $request->validate([
+            'attachments.*' => 'required|file|max:5120', // 5MB each file
+        ]);
+
+        // Check if files exist
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+
+                // Store file inside storage/app/public/referral_attachments
+                $path = $file->store('referral_attachments', 'public');
+
+                // Save file record to DB
+                ReferralAttachment::create([
+                    'referral_id' => $referralId,
+                    'file_name'   => $file->getClientOriginalName(),
+                    'file_path'   => $path,
+                ]);
+            }
+        }
+
+        return back()->with('success', 'Attachments uploaded successfully!');
+    }
+
+
 }
