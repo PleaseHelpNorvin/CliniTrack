@@ -67,7 +67,14 @@
         class="list-group-item list-group-item-action bg-light {{ request()->routeIs('nurse.reports.*') ? 'active' : '' }}">
         Reports
       </a>
-      
+      <a href="{{ route('nurse.referral.index') }}" 
+        class="list-group-item list-group-item-action bg-light {{ request()->routeIs('nurse.referral.*') ? 'active' : '' }}">
+        referrals
+      </a>
+      <a href="{{ route('nurse.diagnosis.index', ['visit' => $latestVisit->id ?? 1]) }}" 
+        class="list-group-item list-group-item-action bg-light {{ request()->routeIs('nurse.diagnosis.*') ? 'active' : '' }}">
+        Diagnosis
+      </a>
       {{-- Logout --}}
       <form action="{{ Route('logout') }}" method="POST">
         @csrf
@@ -75,7 +82,6 @@
       </form>
     </div>
   </div>
-
   {{-- Content --}}
   <div id="content-area">
     

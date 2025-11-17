@@ -132,7 +132,7 @@
                             <td>{{ $visit->visited_at->format('M d, Y h:i A') }}</td>
                             <td>{{ $visit->student->first_name }} {{ $visit->student->last_name }}</td>
                             <td>{{ ucfirst($visit->reason) }}</td>
-                            <td>{{ $visit->nurse->name }}</td>
+                            <td>{{ $visit->nurse_name }}</td>
                             <td>{{ ucfirst($visit->status) }}</td>
                         </tr>
                     @empty

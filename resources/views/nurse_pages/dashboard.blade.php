@@ -5,6 +5,25 @@
 
 @section('content')
 <div class="container-fluid">
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <a href="{{ route('nurse.diagnosis.index', ['visit' => $latestVisit->id ?? 1]) }}">
+                click here.
+            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <a href="{{ route('nurse.diagnosis.index', ['visit' => $latestVisit->id ?? 1]) }}">
+                click here.
+            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
     <!-- ==================== Quick Action Buttons ==================== -->
     <div class="row mb-4">
@@ -27,13 +46,13 @@
                     <div>
                         <h5 >Patients Today
 
-                                        <i class="bi bi-info-circle ms-1" 
-                                            tabindex="0"
-                                            data-bs-toggle="popover"
-                                            data-bs-trigger="focus"
-                                            title="Patients Today"
-                                            data-bs-content="This card shows the total number of patients who visited today.">
-                                        </i>
+                            <i class="bi bi-info-circle ms-1" 
+                                tabindex="0"
+                                data-bs-toggle="popover"
+                                data-bs-trigger="focus"
+                                title="Patients Today"
+                                data-bs-content="This card shows the total number of patients who visited today.">
+                            </i>
                         </h5>
                         <h3>
                             {{ $patientsToday }}
@@ -111,6 +130,62 @@
             </div>
         </div>
     </div>
+
+    <!-- ==================== Unassigned Visits Table ==================== -->
+    @if(!$unassignedVisits->isEmpty())
+        <div class="card mb-4 ">
+            <div class="card-header bg-danger text-white fw-bold">
+                Visits Without Assigned Nurse
+            </div>
+
+            <div class="card-body">
+
+                @if($unassignedVisits->isEmpty())
+                    <p class="text-muted text-center">All visits have assigned nurses 🎉</p>
+                @else
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Student Name</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach($unassignedVisits as $visit)
+                                    <tr>
+                                        <td>{{ $visit->visited_at?->format('M d, Y h:i A') ?? 'N/A' }}</td>
+                                        <td>
+                                            {{ $visit->student->first_name }}
+                                            {{ $visit->student->last_name }}
+                                        </td>
+                                        <td>{{ ucfirst($visit->reason) }}</td>
+                                        <td>
+                                            <span class="badge bg-secondary">{{ ucfirst($visit->status) }}</span>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('nurse.assignSelf', $visit->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary btn-sm">
+                                                    Assign to Me
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+
+                        </table>
+                    </div>
+                @endif
+            </div>
+        </div>
+    @endif
+
 
     <!-- ==================== Urgent Alerts + Frequent Visitors ==================== -->
     <div class="row">

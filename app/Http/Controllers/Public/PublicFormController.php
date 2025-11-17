@@ -72,37 +72,27 @@ class PublicFormController extends Controller
     public function storeVisit(Request $request)
     {
         $validated = $request->validate([
-            'student_id'     => 'required|exists:students,id',
-            'visited_at'     => 'required|date',
-            'reason'         => 'required',
-            'status'         => 'required',
-            'other_reason'   => 'required_if:reason,other',
-            'referred_to'    => 'required_if:status,referred',
-            'temperature'    => 'nullable|string',
-            'blood_pressure' => 'nullable|string',
-            'pulse_rate'     => 'nullable|string',
-            'treatment_given'=> 'nullable|string',
-            'nurse_notes'    => 'nullable|string',
-            'emergency'      => 'sometimes|boolean',
+            'student_id'   => 'required|exists:students,id',
+            'visited_at'   => 'required|date',
+            'reason'       => 'required',
+            'other_reason' => 'required_if:reason,other',
+            'emergency'    => 'sometimes|boolean',
         ]);
 
         $visit = Visit::create([
-            'student_id'     => $request->student_id,
-            'nurse_id'       => null,
-            'visited_at'     => $request->visited_at,
-            'reason'         => $request->reason, // always enum value
-            'other_reason'   => $request->reason === 'other' ? $request->other_reason : null,
-            'temperature'    => $request->temperature,
-            'blood_pressure' => $request->blood_pressure,
-            'pulse_rate'     => $request->pulse_rate,
-            'treatment_given'=> $request->treatment_given,
-            'nurse_notes'    => $request->nurse_notes,
-            'status'         => $request->status,
-            'referred_to'    => $request->status === 'referred' ? $request->referred_to : null,
-            'emergency'      => $request->has('emergency'),
+            'student_id'   => $request->student_id,
+            'nurse_id'     => null, // not assigned yet
+            'visited_at'   => $request->visited_at,
+            'reason'       => $request->reason,
+            'other_reason' => $request->reason === 'other' ? $request->other_reason : null,
+            'status'       => 'unassigned', // default for new visit requests
+            'emergency'    => $request->has('emergency'),
         ]);
-        
-        ActivityLogService::log(ActivityActions::FILL_PUBLIC_VISIT_FORM, ['student' => $visit->student->first_name . ' ' . $visit->student->last_name]);
-        return redirect()->route('public.visit.create')->with('success', 'Visit updated successfully!');
+
+        ActivityLogService::log(ActivityActions::FILL_PUBLIC_VISIT_FORM, [
+            'student' => $visit->student->first_name . ' ' . $visit->student->last_name
+        ]);
+
+        return redirect()->route('public.visit.create')->with('success', 'Visit request submitted successfully!');
     }
 }

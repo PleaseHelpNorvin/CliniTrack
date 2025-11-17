@@ -18,7 +18,6 @@ class Visit extends Model
         'treatment_given',
         'nurse_notes',
         'status',
-        'referred_to',
         'emergency',
     ];
 
@@ -38,7 +37,10 @@ class Visit extends Model
         return $this->belongsTo(User::class, 'nurse_id');
     }
 
-    
+    public function referrals()
+    {
+        return $this->hasMany(Referral::class);
+    }
 
     public function getNurseNameAttribute()
     {

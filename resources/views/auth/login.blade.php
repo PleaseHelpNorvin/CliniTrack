@@ -16,7 +16,7 @@
 
     <div class="card shadow-sm" style="width: 400px;">
         <div class="card-body">
-            <h3 class="card-title text-center mb-4">CliniTrack Login</h3>
+            <h3 class="card-title text-center mb-4">Login</h3>
 
             @if(session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>

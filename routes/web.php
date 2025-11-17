@@ -12,11 +12,12 @@ use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\FormController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Nurse\DashboardController as NurseDashboard;
+use App\Http\Controllers\Nurse\DiagnosisController;
 use App\Http\Controllers\Nurse\StudentController as NurseStudent;
 use App\Http\Controllers\Nurse\ReportController as NurseReports;
 use App\Http\Controllers\Nurse\VisitController;
 use App\Http\Controllers\Public\PublicFormController;
-
+use App\Http\Controllers\Nurse\ReferralController;
 use App\Http\Controllers\Staff\DashboardController as StaffDashboard;
 use App\Models\Form;
 
@@ -90,7 +91,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 // Nurse routes
 Route::prefix('nurse')->middleware(['auth', 'role:nurse'])->group(function () {
     Route::get('/dashboard', [NurseDashboard::class, 'index'])->name('nurse.dashboard');
-    
+    Route::post('/assign-self/{id}', [NurseDashboard::class, 'assignSelf'])->name('nurse.assignSelf');
+
     Route::prefix('students')->group(function (){
         Route::get('/', [NurseStudent::class, 'index'])->name('nurse.students.index');
         Route::get('/create', [NurseStudent::class, 'create'])->name('nurse.students.create');
@@ -99,6 +101,17 @@ Route::prefix('nurse')->middleware(['auth', 'role:nurse'])->group(function () {
         Route::get('/edit/{student}', [NurseStudent::class, 'edit'])->name('nurse.students.edit');
         Route::post('/update/{student}', [NurseStudent::class, 'update'])->name('nurse.students.update');
         Route::delete('destroy/{student}', [NurseStudent::class, 'destroy'])->name('nurse.students.destroy');
+    });
+    Route::prefix('diagnosis')->group(function (){
+        Route::get('/', [DiagnosisController::class, 'index'])->name('nurse.diagnosis.index'); // list all visits
+        Route::post('/{visit}', [DiagnosisController::class, 'store'])->name('nurse.diagnosis.store'); // view a visit
+    });
+
+    Route::prefix('referrals')->group(function() {
+        Route::get('/', [ReferralController::class, 'index'])->name('nurse.referral.index');
+        Route::get('/{referral}', [ReferralController::class, 'show'])->name('nurse.referral.show');
+        Route::get('/{referral}/edit', [ReferralController::class, 'edit'])->name('nurse.referral.edit');
+        Route::post('/{referral}', [ReferralController::class, 'update'])->name('nurse.referral.update');
     });
 
     Route::prefix('visits')->group(function () {

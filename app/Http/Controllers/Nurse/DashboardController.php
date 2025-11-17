@@ -9,6 +9,8 @@ use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Form;
+use Illuminate\Support\Facades\Auth;
+
 
 class DashboardController extends Controller
 {
@@ -94,6 +96,9 @@ class DashboardController extends Controller
 
         $forms = Form::orderBy('created_at', 'desc')->paginate(5);
     
+        $unassignedVisits = Visit::whereNull('nurse_id')
+            ->orderBy('visited_at', 'desc')
+            ->get();
 
         return view('nurse_pages.dashboard', compact(
             'patientsToday',
@@ -108,8 +113,38 @@ class DashboardController extends Controller
             'weekData',
             'orderedWeek',   
             'symptomsToday',
-            'forms'
+            'forms',
+            'unassignedVisits'
         ));
+    }
+
+    public function assignSelf($id)
+    {
+        $nurseId = Auth::id();
+
+        $activeVisit = Visit::where('nurse_id', Auth::id())
+                        ->whereIn('status', ['assigned','in_progress'])
+                        ->first();
+
+        if ($activeVisit) {
+            return redirect()->route('nurse.dashboard')
+                ->with('error', 'You already have a visit assigned. Complete it before taking a new one.');
+        }
+
+        $visit = Visit::findOrFail($id);
+
+        if ($visit->nurse_id) {
+            return redirect()->route('nurse.dashboard')
+                ->with('error', 'This visit is already assigned to another nurse.');
+        }
+
+        $visit->update([
+            'nurse_id' => $nurseId,
+            'status' => 'assigned'
+        ]);
+
+        return redirect()->route('nurse.dashboard')
+            ->with('success', 'Visit successfully assigned to you.');
     }
 
 }

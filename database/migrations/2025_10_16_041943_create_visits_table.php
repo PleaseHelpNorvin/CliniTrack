@@ -27,8 +27,7 @@ return new class extends Migration
             $table->string('pulse_rate')->nullable();
             $table->text('treatment_given')->nullable();
             $table->text('nurse_notes')->nullable();
-            $table->enum('status', ['treated','referred','sent_home'])->default('treated');
-            $table->string('referred_to')->nullable();
+            $table->enum('status', ['unassigned','assigned','in_progress','treated','referred','sent_home'])->default('unassigned');
             $table->boolean('emergency')->default(false);
             $table->timestamps();
         });

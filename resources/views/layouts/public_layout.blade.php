@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="{{ asset('Select2_4.0.13/dist/css/select2.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('App/css/public.css') }}">
 </head>
-<body class="bg-light">
-
+<body class="d-flex flex-column min-vh-100 bg-light">
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
@@ -20,7 +19,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="py-4">
+    <main class="flex-grow-1 py-4">
         @yield('content')
     </main>
 
@@ -29,11 +28,11 @@
         &copy; {{ date('Y') }} CliniTrack. All rights reserved.
     </footer>
 
-    <!-- Bootstrap JS -->
-     <script src="{{ asset('Jquery-3.7.1/js/jquery-3.7.1.min.js') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('Jquery-3.7.1/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('Bootstrap5/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('Select2_4.0.13/dist/js/select2.min.js') }}"></script>
     <script src="{{ asset('App/js/select.js') }}"></script>
-
 </body>
+
 </html>

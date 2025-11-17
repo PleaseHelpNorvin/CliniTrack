@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             FormSeeder::class,
             UserSeeder::class,
             StudentSeeder::class,
-            VisitSeeder::class,
+            // VisitSeeder::class,
         ]);
     }
 }
