@@ -35,7 +35,7 @@ class FormController extends Controller
     {
         return view('admin_pages.forms_pages.edit', compact('form'));
     }
-    
+
     public function update(Request $request, Form $form)
     {
         $request->validate([
@@ -44,10 +44,13 @@ class FormController extends Controller
             'type' => 'required|string|max:50',
             'link' => 'required|url',
             'status' => 'required|in:active,inactive',
+            'is_public' => 'nullable|boolean',
         ]);
+        $data['is_public'] = $request->has('is_public') ? 1 : 0;
 
         $form->update($request->all());
 
+        $form->update($data);
         return redirect()->route('admin.dashboard')->with('success', 'Form updated successfully!');
     }
 

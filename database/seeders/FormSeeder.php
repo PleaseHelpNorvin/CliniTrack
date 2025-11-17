@@ -28,5 +28,15 @@ class FormSeeder extends Seeder
             'link' => 'http://127.0.0.1:8000/public/visit/create',
             'status' => 'active',
         ]);
+
+        Form::create([
+            'name' => 'Medicinal Tracker Form',
+            'description' => 'Form for N',
+            'type' => 'Form',
+            'link' => 'http://127.0.0.1:8000/public/referral_histories',
+            'status' => 'active',
+        ]);
+
+        
     }
 }

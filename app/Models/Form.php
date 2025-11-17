@@ -15,6 +15,7 @@ class Form extends Model
         'description',
         'type',
         'link',
+        'is_public',
         'status',
     ];
 

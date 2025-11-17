@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('type')->default('Form'); // e.g., Form, PDF/Form
             $table->string('link'); // URL or path
             $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->boolean('is_public')->default(false); 
             $table->timestamps();
         });
 
