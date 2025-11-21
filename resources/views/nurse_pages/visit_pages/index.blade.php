@@ -22,14 +22,14 @@
 
 
 <div class="card shadow-sm">
-    <div class="card-body">
+    <div class="card-header bg-primary text-white fw-bold d-flex flex-column">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <a href="{{ route('nurse.visits.create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Add Visit
             </a>
         </div>
 
-        {{-- Filter Section --}}
+          {{-- Filter Section --}}
         <!-- <div class="d-flex gap-2 mb-3"> -->
             <form method="GET" action="{{ route('nurse.visits.index') }}" class="d-flex gap-2 mb-3">
                 <input type="text" name="search" class="form-control flex-grow-1" placeholder="Search by student..." value="{{ request('search') }}">
@@ -62,6 +62,11 @@
                 <button class="btn btn-secondary" type="submit">Filter</button>
             </form>
         <!-- </div> -->
+    </div>
+
+    <div class="card-body">
+
+      
 
         {{-- Visits Table --}}
      <div class="table-responsive mt-3 mt-md-0">

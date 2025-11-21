@@ -10,16 +10,38 @@ use App\Models\Referral;
 class ReferralController extends Controller
 {
     //.
-    public function index()
+    public function index(Request $request)
     {
-    $referrals = Referral::with('visit.student')
-                    ->where('status', Referral::STATUS_REFERRED)
-                    ->latest('created_at') // or 'updated_at' depending on your use case
-                    ->get();
+        $search = $request->input('search');
 
-        return view('nurse_pages.referral_pages.index', compact('referrals'));
+        $statuses = [
+            Referral::STATUS_REFERRED,
+            Referral::STATUS_IN_TREATMENT,
+            Referral::STATUS_RETURNED,
+            Referral::STATUS_COMPLETED,
+        ];
+
+        $referralsByStatus = [];
+        foreach ($statuses as $status) {
+            $query = Referral::with('visit.student')
+                ->where('status', $status);
+
+            if ($search) {
+                $query->whereHas('visit.student', function($q) use ($search) {
+                    $q->where('first_name', 'like', "%$search%")
+                    ->orWhere('last_name', 'like', "%$search%");
+                })
+                ->orWhereHas('visit', function($q) use ($search) {
+                    $q->where('reason', 'like', "%$search%");
+                });
+            }
+
+            $referralsByStatus[$status] = $query->latest('created_at')->get();
+        }
+
+        return view('nurse_pages.referral_pages.index', compact('referralsByStatus', 'search'));
     }
-
+    
     public function show(Referral $referral)
     {
         $referral->load('visit.student', 'histories');
@@ -63,5 +85,4 @@ class ReferralController extends Controller
 
     //     return redirect()->back()->with('success', 'Referral history added successfully.');
     // }
-
 }

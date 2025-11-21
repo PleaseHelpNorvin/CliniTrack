@@ -12,8 +12,12 @@
         @endif
 
 <div class="card mb-4">
-    <div class="card-body">
-        <a href="{{ Route('nurse.students.create') }}" class="btn btn-primary mb-3">Add Student</a>
+    <div class="card-header bg-primary text-white fw-bold d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+                    <a href="{{ Route('nurse.students.create') }}" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Student</a>
+
+        </div>
+
 
         <!-- Search Form -->
         <form method="GET" action="{{ route('nurse.students.index') }}" class="mb-3">
@@ -22,6 +26,9 @@
                 <button class="btn btn-primary">Search</button>
             </div>
         </form>
+
+    </div>
+    <div class="card-body">
 
         <!-- Students Table -->
         <div class="table-responsive">

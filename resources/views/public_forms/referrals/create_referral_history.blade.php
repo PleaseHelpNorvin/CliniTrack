@@ -21,6 +21,11 @@
                         Attachments
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#historyTab" type="button" role="tab">
+                        History
+                    </button>
+                </li>
             </ul>
 
             <div class="tab-content mt-3" id="myTabContent">
@@ -151,6 +156,52 @@
                         <button type="submit" class="btn btn-success">Upload</button>
                     </form>
 
+                </div>
+
+                <!-- ========================= -->
+                <!-- TAB 2: ATTACHMENTS TAB    -->
+                <!-- ========================= -->
+                <div class="tab-pane fade" id="historyTab" role="tabpanel">
+               @if($referral->histories->isNotEmpty())
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Performed By</th>
+                                    <th>BP</th>
+                                    <th>Temp</th>
+                                    <th>Pulse</th>
+                                    <th>Resp Rate</th>
+                                    <th>O2 Sat</th>
+                                    <th>Treatment / Notes</th>
+                                    <th>Update Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($referral->histories as $history)
+                                <tr>
+                                    <td>{{ $history->created_at->format('M d, Y H:i') }}</td>
+                                    <td>{{ $history->perform_by }}</td>
+                                    <td>{{ $history->bp }}</td>
+                                    <td>{{ $history->temp }}</td>
+                                    <td>{{ $history->pulse }}</td>
+                                    <td>{{ $history->resp_rate }}</td>
+                                    <td>{{ $history->o2_sat }}</td>
+                                    <td>
+                                        <strong>Treatment:</strong> {{ $history->treatment }}<br>
+                                        <strong>Medicine:</strong> {{ $history->medicine_given }}<br>
+                                        <strong>Notes:</strong> {{ $history->nurse_notes }}
+                                    </td>
+                                    <td>{{ ucfirst(str_replace('_', ' ', $history->update_type)) }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <p class="text-muted">No history recorded yet for this referral.</p>
+                @endif
                 </div>
 
             </div>

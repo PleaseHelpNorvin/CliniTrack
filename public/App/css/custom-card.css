@@ -1,0 +1,10 @@
+/* Tabs in card header */
+.card-header .nav-tabs .nav-link {
+    color: white; /* default color */
+}
+
+.card-header .nav-tabs .nav-link.active {
+    color: black !important; /* active tab text black */
+    background-color: #fff; /* optional: make active tab background white */
+    border-color: #dee2e6 #dee2e6 #fff; /* match Bootstrap active tab style */
+}

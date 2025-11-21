@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{ asset('Bootstrap5/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('Select2_4.0.13/dist/css/select2.min.css') }}" rel="stylesheet" />
   <link rel="stylesheet" href="{{ asset('bootstrap-icons/font/bootstrap-icons.css') }}">
+  <link rel="stylesheet" href="{{ asset('App/css/custom-card.css') }}">
 
   <style>
     .list-group-item.active {
