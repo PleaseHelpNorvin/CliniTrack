@@ -10,7 +10,7 @@
         Referred Visits
     </div>
     <div class="card-body">
-        @if($visits->isEmpty())
+        @if($referrals->isEmpty())
             <div class="alert alert-info">No referred visits found yet.</div>
         @else
             <table class="table table-striped table-bordered">
@@ -26,16 +26,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($visits as $index => $visit)
+                    @foreach($referrals as $index => $referral)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $visit->student->first_name }} {{ $visit->student->last_name }}</td>
-                            <td>{{ $visit->student->grade_level }}</td>
-                            <td>{{ $visit->student->section }}</td>
-                            <td>{{ $visit->visited_at?->format('M d, Y h:i A') }}</td>
-                            <td>{{ ucfirst($visit->reason) }}</td>
+                            <td>{{ $referral->visit->student->first_name }} {{ $referral->visit->student->last_name }}</td>
+                            <td>{{ $referral->visit->student->grade_text }}</td>
+                            <td>{{ $referral->visit->student->section_text }}</td>
+                            <td>{{ $referral->visit->visited_at?->format('M d, Y h:i A') }}</td>
+                            <td>{{ ucfirst($referral->visit->reason) }}</td>
                             <td>
-                                <a href="{{ route('nurse.referral.show', $visit->id) }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('nurse.referral.show', $referral->id) }}" class="btn btn-primary btn-sm">
                                     View
                                 </a>
                             </td>

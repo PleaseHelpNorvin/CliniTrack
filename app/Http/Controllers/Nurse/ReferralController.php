@@ -12,12 +12,12 @@ class ReferralController extends Controller
     //.
     public function index()
     {
-        $visits = Visit::with('student', 'referrals')
-                    ->where('status', 'referred')
-                    ->latest('visited_at')
+    $referrals = Referral::with('visit.student')
+                    ->where('status', Referral::STATUS_REFERRED)
+                    ->latest('created_at') // or 'updated_at' depending on your use case
                     ->get();
 
-        return view('nurse_pages.referral_pages.index', compact('visits'));
+        return view('nurse_pages.referral_pages.index', compact('referrals'));
     }
 
     public function show(Referral $referral)
