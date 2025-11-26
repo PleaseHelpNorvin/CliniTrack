@@ -19,6 +19,7 @@ class FormSeeder extends Seeder
             'type' => 'Form',
             'link' => 'http://127.0.0.1:8000/public/student-profile/create',
             'status' => 'active',
+            'is_public' => true
         ]);
 
         Form::create([
@@ -27,6 +28,8 @@ class FormSeeder extends Seeder
             'type' => 'Form',
             'link' => 'http://127.0.0.1:8000/public/visit/create',
             'status' => 'active',
+            'is_public' => true
+            
         ]);
 
         Form::create([
@@ -35,6 +38,7 @@ class FormSeeder extends Seeder
             'type' => 'Form',
             'link' => 'http://127.0.0.1:8000/public/referral_histories',
             'status' => 'active',
+            'is_public' => false
         ]);
 
         

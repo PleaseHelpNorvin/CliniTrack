@@ -26,19 +26,19 @@ class PublicFormController extends Controller
     public function StoreStudentProfile(Request $request)
     {
         $data = $request->validate([
-                    'first_name' => 'required|string|max:255',
-                    'last_name'  => 'required|string|max:255',
-                    'student_number' => 'required|string|max:50|unique:students,student_number',
+                    'first_name' => ['required','regex:/^[A-Za-z\s\-]+$/', 'max:255'],
+                    'last_name'  => ['required','regex:/^[A-Za-z\s\-]+$/', 'max:255'],
+                    'student_number' => ['required', 'numeric', 'unique:students,student_number'],
                     'grade_level' => 'required|integer',
                     'grade_level_other' => 'nullable|string|max:50',
                     'section' => 'nullable|string|max:50',
                     'dob' => 'required|date',
-                    'contact_number' => 'required|string|max:20',
+                    'contact_number' => ['required', 'regex:/^[0-9]+$/', 'max:20'],
                     'email' => 'required|email|max:255',   
                     'address' => 'required|string',
                     'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                     'documents.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-                    'allergies' => 'nullable|max:255',
+                    'allergies' => ['nullable','regex:/^[A-Za-z\s\-]+$/', 'max:255'],
                     'medical_notes' => 'nullable|max:255'
                 ]);
 
@@ -148,7 +148,7 @@ class PublicFormController extends Controller
         
         $referral = Referral::findOrFail($request->referral_id);
         $referral->status = Referral::STATUS_IN_TREATMENT;
-        $referral->save();
+        $referral->save();  
 
         return redirect()->route('public.referral_histories.index')->with('success', 'Referral history created!');
     }
